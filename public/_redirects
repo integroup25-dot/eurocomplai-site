@@ -1,0 +1,15 @@
+# Cloudflare Pages redirects
+
+# Canonical: www → apex
+https://www.eurocomplai.com/* https://eurocomplai.com/:splat 301!
+
+# Legacy HTML route fallback (in case anyone shared the old preview URLs)
+/Homepage.html / 301
+/Come%20funziona.html /come-funziona/ 301
+/Pricing.html /pricing/ 301
+/Chi%20siamo.html /chi-siamo/ 301
+/Demo.html /demo/ 301
+/Soluzioni%20-%20Sanit%C3%A0.html /soluzioni/sanita/ 301
+/Soluzioni%20-%20Studi%20legali.html /soluzioni/studi-legali/ 301
+/Soluzioni%20-%20PA.html /soluzioni/pa/ 301
+/Soluzioni%20-%20Aziende%20private.html /soluzioni/aziende-private/ 301
