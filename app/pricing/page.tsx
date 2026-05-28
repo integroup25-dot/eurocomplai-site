@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import TopStrip from "@/components/TopStrip";
-import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ArrowIcon from "@/components/ArrowIcon";
 
@@ -15,12 +13,10 @@ export const metadata: Metadata = {
 export default function PricingPage() {
   return (
     <>
-      <TopStrip />
       <main>
         {/* HEADER + HERO (band-grid) */}
         <section className="band-grid">
           <div className="container">
-            <Header ctaHref="/demo/" />
 
             <section className="page-hero">
               <div className="hero-eyebrow">Pricing</div>

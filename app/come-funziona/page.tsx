@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import TopStrip from "@/components/TopStrip";
-import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ArrowIcon from "@/components/ArrowIcon";
 import SemaphoreDots from "@/components/SemaphoreDots";
@@ -16,12 +14,10 @@ export const metadata: Metadata = {
 export default function ComeFunzionaPage() {
   return (
     <>
-      <TopStrip label="PAGE · COME FUNZIONA" />
       <main>
         {/* HEADER + HERO (band-grid) */}
         <section className="band-grid">
           <div className="container">
-            <Header ctaHref="#cta" />
 
             <section className="page-hero">
               <div className="hero-eyebrow">Come funziona EurocomplAI</div>

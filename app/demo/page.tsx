@@ -1,6 +1,4 @@
 import type { Metadata } from "next";
-import TopStrip from "@/components/TopStrip";
-import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SemaphoreDots from "@/components/SemaphoreDots";
 import CalendlyInline from "@/components/CalendlyInline";
@@ -16,12 +14,10 @@ export const metadata: Metadata = {
 export default function DemoPage() {
   return (
     <>
-      <TopStrip label="PAGE · DEMO & CONTATTI" />
       <main>
         {/* HEADER + HERO (band-grid) */}
         <section className="band-grid">
           <div className="container">
-            <Header ctaHref="#book" ctaLabel="Prenota la demo" />
 
             <section className="page-hero" style={{ paddingBottom: "56px" }}>
               <div className="hero-eyebrow">Richiedi una demo</div>
