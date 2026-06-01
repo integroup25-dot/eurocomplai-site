@@ -2842,3 +2842,121 @@ main {
   .flow-strip { grid-template-columns: 1fr; }
   .extract-summary-grid { grid-template-columns: 1fr 1fr; }
 }
+
+/* ========================  PRIVACY PAGE  ======================== */
+.privacy-doc {
+  padding: 56px 0 80px;
+  max-width: 780px;
+}
+.privacy-title {
+  font-size: clamp(26px, 3.2vw, 38px);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.022em;
+  color: var(--ink);
+  margin-bottom: 28px;
+  text-wrap: balance;
+}
+.privacy-intro {
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--ink-2);
+  margin-bottom: 48px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--border-1);
+}
+.privacy-section {
+  margin-bottom: 40px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid var(--border-2);
+}
+.privacy-section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+.privacy-h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 16px;
+  letter-spacing: -0.01em;
+}
+.privacy-section p {
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--ink-2);
+  margin-bottom: 12px;
+}
+.privacy-section p:last-child { margin-bottom: 0; }
+.privacy-list {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.privacy-list li {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--ink-2);
+  padding-left: 18px;
+  position: relative;
+}
+.privacy-list li::before {
+  content: "–";
+  position: absolute;
+  left: 0;
+  color: var(--ink-4);
+}
+.privacy-list--rights li {
+  padding-left: 0;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border-2);
+}
+.privacy-list--rights li:last-child { border-bottom: none; }
+.privacy-list--rights li::before { display: none; }
+.privacy-link {
+  color: var(--accent);
+  text-decoration: none;
+}
+.privacy-link:hover { text-decoration: underline; }
+
+/* Table */
+.privacy-table-wrap {
+  overflow-x: auto;
+  margin-top: 16px;
+  border-radius: 10px;
+  border: 1px solid var(--border-1);
+}
+.privacy-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.privacy-table th {
+  background: var(--panel);
+  color: var(--ink);
+  font-weight: 600;
+  font-size: 13px;
+  text-align: left;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border-1);
+  white-space: nowrap;
+}
+.privacy-table td {
+  vertical-align: top;
+  padding: 14px 16px;
+  color: var(--ink-2);
+  border-bottom: 1px solid var(--border-2);
+}
+.privacy-table tbody tr:last-child td { border-bottom: none; }
+.privacy-table tbody tr:nth-child(even) td { background: rgba(255,255,255,0.015); }
+
+@media (max-width: 620px) {
+  .privacy-doc { padding: 36px 0 60px; }
+  .privacy-table { font-size: 13px; }
+  .privacy-table th, .privacy-table td { padding: 10px 12px; }
+}
