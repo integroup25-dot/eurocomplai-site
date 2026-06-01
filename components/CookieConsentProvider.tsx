@@ -8,7 +8,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { type ConsentChoices, getStoredConsent, saveConsent } from "@/lib/cookieConsent";
+import { type ConsentChoices, getStoredConsent, saveConsent, logConsent } from "@/lib/cookieConsent";
 
 type CookieConsentCtx = {
   choices: ConsentChoices | null;
@@ -40,10 +40,11 @@ export default function CookieConsentProvider({ children }: { children: ReactNod
     setReady(true);
   }, []);
 
-  const commit = useCallback((c: ConsentChoices) => {
+  const commit = useCallback((c: ConsentChoices, action: "accept_all" | "reject_all" | "custom") => {
     setChoices(c);
     saveConsent(c);
     setBannerOpen(false);
+    logConsent(c, action);
   }, []);
 
   return (
@@ -53,9 +54,9 @@ export default function CookieConsentProvider({ children }: { children: ReactNod
         ready,
         bannerOpen,
         openSettings: () => setBannerOpen(true),
-        acceptAll: () => commit({ functional: true }),
-        rejectAll: () => commit({ functional: false }),
-        saveChoices: commit,
+        acceptAll: () => commit({ functional: true }, "accept_all"),
+        rejectAll: () => commit({ functional: false }, "reject_all"),
+        saveChoices: (c) => commit(c, "custom"),
       }}
     >
       {children}
