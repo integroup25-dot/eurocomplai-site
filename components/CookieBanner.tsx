@@ -76,8 +76,8 @@ export default function CookieBanner() {
               Utilizziamo cookie per garantire il corretto funzionamento del sito e, con il tuo
               consenso, per abilitare funzionalità come la prenotazione di demo. Puoi accettare
               tutti i cookie, rifiutare quelli non essenziali o personalizzare le tue scelte.{" "}
-              <Link href="/privacy/" className="cookie-link">
-                Privacy policy
+              <Link href="/cookie/" className="cookie-link">
+                Cookie policy
               </Link>
             </p>
 
