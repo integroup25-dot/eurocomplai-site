@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import SiteHeader from "@/components/SiteHeader";
+import CookieConsentProvider from "@/components/CookieConsentProvider";
+import CookieBanner from "@/components/CookieBanner";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -125,8 +127,11 @@ export default function RootLayout({
   return (
     <html lang="it" className={`${geistSans.variable} ${geistMono.variable}`}>
       <body>
-        <SiteHeader />
-        {children}
+        <CookieConsentProvider>
+          <SiteHeader />
+          {children}
+          <CookieBanner />
+        </CookieConsentProvider>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
