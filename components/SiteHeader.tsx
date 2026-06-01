@@ -20,6 +20,7 @@ function normalize(path: string): string {
 
 export default function SiteHeader() {
   const [hidden, setHidden] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const lastY = useRef(0);
   const rawPath = usePathname() ?? "/";
   const pathname = normalize(rawPath);
@@ -41,6 +42,16 @@ export default function SiteHeader() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [menuOpen]);
+
+  // Close menu on route change
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [pathname]);
+
   const isActive = (href: string) => {
     const target = normalize(href);
     if (target === "/") return pathname === "/";
@@ -49,7 +60,7 @@ export default function SiteHeader() {
   const soluzioniActive = pathname.startsWith("/soluzioni");
 
   return (
-    <header className={`site-header ${hidden ? "is-hidden" : ""}`}>
+    <header className={`site-header ${hidden ? "is-hidden" : ""} ${menuOpen ? "menu-is-open" : ""}`}>
       <div className="site-header-inner">
         <div className="site-header-brand">
           <Logomark />
@@ -93,6 +104,46 @@ export default function SiteHeader() {
             <ArrowIcon />
           </Link>
         </nav>
+
+        <button
+          className={`burger ${menuOpen ? "is-open" : ""}`}
+          aria-label={menuOpen ? "Chiudi menu" : "Apri menu"}
+          aria-expanded={menuOpen}
+          onClick={() => setMenuOpen((v) => !v)}
+        >
+          <span />
+          <span />
+          <span />
+        </button>
+      </div>
+
+      {/* Mobile drawer */}
+      <div className={`mobile-menu ${menuOpen ? "is-open" : ""}`} aria-hidden={!menuOpen}>
+        <ul className="mobile-nav-links">
+          <li className={isActive("/come-funziona/") ? "active" : ""}>
+            <Link href="/come-funziona/">Come funziona</Link>
+          </li>
+          <li className={soluzioniActive ? "active" : ""}>
+            <span className="mobile-section-label">Soluzioni</span>
+            <ul className="mobile-submenu">
+              {SOLUZIONI.map((s) => (
+                <li key={s.href} className={isActive(s.href) ? "active" : ""}>
+                  <Link href={s.href}>{s.label}</Link>
+                </li>
+              ))}
+            </ul>
+          </li>
+          <li className={isActive("/pricing/") ? "active" : ""}>
+            <Link href="/pricing/">Pricing</Link>
+          </li>
+          <li className={isActive("/chi-siamo/") ? "active" : ""}>
+            <Link href="/chi-siamo/">Chi siamo</Link>
+          </li>
+        </ul>
+        <Link href="/demo/" className="btn btn-primary mobile-cta">
+          Prenota la demo
+          <ArrowIcon />
+        </Link>
       </div>
     </header>
   );
