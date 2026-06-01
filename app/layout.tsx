@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import SiteHeader from "@/components/SiteHeader";
@@ -23,6 +23,11 @@ const DEFAULT_TITLE =
   "EurocomplAI — Compliance integrata per GDPR, NIS2, AI Act";
 const DEFAULT_DESCRIPTION =
   "Tre normative. Un sistema che estrae, intervista, genera. Tu validi, lui lavora. EurocomplAI è il software di compliance integrata europea, costruito da chi la compliance la fa.";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
