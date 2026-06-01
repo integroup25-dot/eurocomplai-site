@@ -45,13 +45,13 @@ export async function logConsent(
   action: "accept_all" | "reject_all" | "custom"
 ): Promise<void> {
   try {
-    await supabase.from("consent_logs").insert({
-      session_id: getOrCreateSessionId(),
-      action,
-      choices,
-      policy_version: POLICY_VERSION,
-      page_url: window.location.pathname,
-      user_agent: navigator.userAgent.slice(0, 200),
+    await supabase.rpc("log_consent", {
+      p_session_id: getOrCreateSessionId(),
+      p_action: action,
+      p_choices: choices,
+      p_policy_version: POLICY_VERSION,
+      p_page_url: window.location.pathname,
+      p_user_agent: navigator.userAgent.slice(0, 200),
     });
   } catch {
     // log silenzioso — non blocca l'UX
