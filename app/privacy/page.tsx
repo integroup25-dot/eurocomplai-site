@@ -126,9 +126,6 @@ export default function PrivacyPage() {
                         <td>
                           <strong>Dati comuni</strong><br />
                           Perseguimento del legittimo interesse del titolare del trattamento. Ex Art. 6, par. 1,
-                          lett. f) del GDPR.<br /><br />
-                          <strong>Categorie particolari di dati</strong><br />
-                          Accertamento, esercizio o difesa di un diritto in sede giudiziaria. Ex Art. 9, par 2,
                           lett. f) del GDPR.
                         </td>
                         <td>
