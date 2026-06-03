@@ -35,11 +35,6 @@ function getOrCreateSessionId(): string {
   return id;
 }
 
-function resolveAction(choices: ConsentChoices): "accept_all" | "reject_all" | "custom" {
-  if (choices.functional) return "accept_all";
-  return "reject_all";
-}
-
 export async function logConsent(
   choices: ConsentChoices,
   action: "accept_all" | "reject_all" | "custom"
