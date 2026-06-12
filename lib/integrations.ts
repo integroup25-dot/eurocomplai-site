@@ -26,7 +26,7 @@ export const integrations = {
     earlyAccess: null as string | null,
   },
   /** Fallback contact channel when Tally forms are not yet wired. */
-  fallbackEmail: "info@eurocomplai.com",
+  fallbackEmail: "eurocomplai@integroup.eu",
 } as const;
 
 export function getCalendlyEmbedUrl(): string {
