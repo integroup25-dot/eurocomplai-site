@@ -156,12 +156,14 @@ export default function CookiePage() {
                   ma rende non disponibili le funzionalità associate.
                 </p>
 
-                {/* Calendly */}
-                <h3 className="cookie-h3">4.1 Calendly (prenotazione demo)</h3>
+                {/* Microsoft Bookings */}
+                <h3 className="cookie-h3">4.1 Microsoft Bookings (prenotazione demo)</h3>
                 <p>
-                  Il sito integra un widget di Calendly, LLC per consentire la prenotazione
-                  di una sessione di demo. L&apos;iframe di Calendly viene caricato solo se
-                  l&apos;utente ha prestato il consenso ai cookie funzionali.
+                  Il sito integra la pagina di prenotazione di Microsoft Bookings, servizio
+                  di Microsoft Corporation (per l&apos;area SEE: Microsoft Ireland Operations
+                  Limited), per consentire la prenotazione di una sessione di demo.
+                  L&apos;iframe di Microsoft Bookings viene caricato solo se l&apos;utente ha
+                  prestato il consenso ai cookie funzionali.
                 </p>
                 <div className="privacy-table-wrap">
                   <table className="privacy-table">
@@ -175,45 +177,51 @@ export default function CookiePage() {
                     </thead>
                     <tbody>
                       <tr>
-                        <td><code>__calendly_launched</code></td>
-                        <td>Traccia se il widget è stato già aperto dall&apos;utente</td>
+                        <td>Cookie di sessione Microsoft</td>
+                        <td>
+                          Gestione dello stato della prenotazione, bilanciamento del carico
+                          e protezione CSRF durante il flusso di booking
+                        </td>
                         <td>Sessione</td>
-                        <td>Terza parte (Calendly)</td>
+                        <td>Terza parte (Microsoft)</td>
                       </tr>
                       <tr>
-                        <td>Cookie di sessione Calendly</td>
+                        <td>Cookie e storage tecnici del client Bookings</td>
                         <td>
-                          Gestione dello stato della prenotazione, sicurezza CSRF,
-                          memorizzazione delle scelte utente durante il flusso di booking
+                          Memorizzazione delle scelte utente durante il flusso di
+                          prenotazione (servizio, personale, fuso orario di
+                          visualizzazione)
                         </td>
-                        <td>Sessione / fino a completamento booking</td>
-                        <td>Terza parte (Calendly)</td>
+                        <td>Sessione / durata del flusso di prenotazione</td>
+                        <td>Terza parte (Microsoft)</td>
                       </tr>
                       <tr>
-                        <td>Cookie analitici Calendly</td>
+                        <td>Cookie di telemetria e sicurezza Microsoft</td>
                         <td>
-                          Statistiche di utilizzo interne a Calendly (non trasmesse al
-                          Titolare del presente sito)
+                          Diagnostica del servizio e prevenzione degli abusi, gestiti
+                          direttamente da Microsoft e non trasmessi al Titolare del
+                          presente sito
                         </td>
-                        <td>Fino a 2 anni</td>
-                        <td>Terza parte (Calendly)</td>
+                        <td>Sessione / persistenti secondo policy Microsoft</td>
+                        <td>Terza parte (Microsoft)</td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
                 <p>
-                  Per l&apos;elenco completo e aggiornato dei cookie impostati da Calendly si
-                  rimanda alla{" "}
+                  Per l&apos;elenco completo e aggiornato dei cookie impostati da Microsoft si
+                  rimanda all&apos;{" "}
                   <a
-                    href="https://calendly.com/privacy"
+                    href="https://privacy.microsoft.com/privacystatement"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="privacy-link"
                   >
-                    Privacy Policy di Calendly
+                    Informativa sulla privacy di Microsoft
                   </a>
-                  . Il trasferimento dati verso gli Stati Uniti avviene sulla base delle
-                  Clausole Contrattuali Standard adottate dalla Commissione Europea.
+                  . Eventuali trasferimenti di dati verso Paesi terzi avvengono sulla base
+                  del EU-US Data Privacy Framework e, ove necessario, delle Clausole
+                  Contrattuali Standard adottate dalla Commissione Europea.
                 </p>
 
                 {/* Tally */}
@@ -341,9 +349,9 @@ export default function CookiePage() {
                 </p>
                 <ul className="privacy-list">
                   <li>
-                    <strong>Calendly:</strong>{" "}
-                    <a href="https://calendly.com/privacy" target="_blank" rel="noopener noreferrer" className="privacy-link">
-                      calendly.com/privacy
+                    <strong>Microsoft:</strong>{" "}
+                    <a href="https://privacy.microsoft.com/privacystatement" target="_blank" rel="noopener noreferrer" className="privacy-link">
+                      privacy.microsoft.com/privacystatement
                     </a>
                   </li>
                   <li>

@@ -36,7 +36,7 @@ site/
 │   │   └── aziende-private/page.tsx
 │   ├── chi-siamo/page.tsx
 │   ├── pricing/page.tsx
-│   ├── demo/page.tsx           # include Calendly inline + Tally placeholders
+│   ├── demo/page.tsx           # include Microsoft Bookings inline + Tally placeholders
 │   ├── sitemap.ts              # genera /sitemap.xml a build time
 │   ├── robots.ts               # genera /robots.txt a build time
 │   └── fonts/                  # Geist + Geist Mono woff
@@ -48,10 +48,10 @@ site/
 │   ├── ArrowIcon.tsx
 │   ├── SemaphoreDots.tsx
 │   ├── CubeIcon.tsx
-│   ├── CalendlyInline.tsx      # iframe Calendly inline embed
+│   ├── BookingInline.tsx       # iframe Microsoft Bookings inline embed
 │   └── TallyPlaceholder.tsx    # iframe Tally quando configurato, altrimenti placeholder
 ├── lib/
-│   └── integrations.ts         # URL Calendly + Tally — modifica qui per attivare i form
+│   └── integrations.ts         # URL Microsoft Bookings + Tally — modifica qui per attivare i form
 ├── public/
 │   ├── favicon.svg             # bracketed [/] vettoriale
 │   ├── favicon-16.png
@@ -92,10 +92,19 @@ Favicon usa la variante astratta `[/]` (solo slash ambra in brackets) — file
 
 ## Form integrations
 
-### Calendly — già attivo
-`lib/integrations.ts` → `integrations.calendly.url` è impostato a
-`https://calendly.com/integroup25/30min`. L'embed è inline su `/demo/` con i brand colors
-applicati via query string. Per cambiare URL o colori, modifica `lib/integrations.ts`.
+### Microsoft Bookings — già attivo
+`lib/integrations.ts` → `integrations.bookings` punta alla pagina di prenotazione condivisa
+`EurocomplAI Bookings` (mailbox `EurocomplAIBookings@integroup.eu`): servizio "Riunione di
+30 minuti", personale Alessandro Oldani e Carlo Matera, orari Lun-Ven 9:00-13:00 e
+14:00-18:00 con fuso orario del calendario impostato su Europe/Rome.
+
+L'embed è inline su `/demo/` tramite `components/BookingInline.tsx`, dietro il gate dei
+cookie funzionali. Per cambiare calendario, aggiorna `url` e `embedUrl` in
+`lib/integrations.ts` copiando lo snippet dal pulsante **Incorpora** della pagina di
+prenotazione in Bookings.
+
+Bookings non supporta parametri di brand color come Calendly: l'aspetto del riquadro si
+personalizza da Bookings → *Pagina di prenotazione* → *Personalizza la pagina*.
 
 ### Tally — placeholder per ora
 `lib/integrations.ts` → `integrations.tally.scrivici` e `.earlyAccess` sono `null`.

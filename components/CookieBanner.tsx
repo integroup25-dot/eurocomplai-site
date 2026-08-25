@@ -25,7 +25,7 @@ const CATEGORIES: {
     label: "Funzionali",
     description:
       "Abilitano funzionalità avanzate come la prenotazione di demo e i form di contatto. Senza questi cookie alcune sezioni del sito non saranno disponibili.",
-    services: "Calendly (prenotazione demo), Tally (form di contatto)",
+    services: "Microsoft Bookings (prenotazione demo), Tally (form di contatto)",
   },
 ];
 

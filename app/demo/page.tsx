@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Footer from "@/components/Footer";
 import SemaphoreDots from "@/components/SemaphoreDots";
-import CalendlyInline from "@/components/CalendlyInline";
+import BookingInline from "@/components/BookingInline";
 import TallyPlaceholder from "@/components/TallyPlaceholder";
 
 export const metadata: Metadata = {
@@ -38,7 +38,7 @@ export default function DemoPage() {
 
         <div className="transition" aria-hidden="true" />
 
-        {/* COSA ASPETTARSI + CALENDLY (band-deep) */}
+        {/* COSA ASPETTARSI + BOOKING (band-deep) */}
         <section className="band-deep">
           <div className="container">
             <div className="section" id="book">
@@ -104,22 +104,21 @@ export default function DemoPage() {
                   </div>
                 </div>
 
-                {/* Calendly inline embed */}
+                {/* Microsoft Bookings inline embed */}
                 <div className="split-mockup">
                   <div className="mock-panel" style={{ background: "var(--panel)", border: "1px solid var(--border-1)", borderRadius: "16px", overflow: "hidden" }}>
                     <div className="agent-topbar" />
                     <div className="mock-header">
                       <SemaphoreDots />
                       <div className="ide-slug">
-                        booking <span className="em">·</span> calendly://integroup25/30min
+                        booking <span className="em">·</span> bookings://eurocomplai/30min
                       </div>
                       <div className="agent-status-count">ready</div>
                     </div>
-                    <CalendlyInline />
+                    <BookingInline />
                     <div className="agent-statusbar">
                       <span>
-                        scheduler: <span className="ok">calendly</span> · response: 2 business
-                        days
+                        scheduler: <span className="ok">ms bookings</span> · slot: 30 min
                       </span>
                       <span className="amber">privacy: GDPR-compliant</span>
                     </div>
