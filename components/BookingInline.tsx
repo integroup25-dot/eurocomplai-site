@@ -5,8 +5,9 @@ import { getBookingsEmbedUrl, getBookingsPageUrl } from "@/lib/integrations";
 
 type Props = Readonly<{
   /**
-   * Override in px dell'altezza responsive di default
-   * (960 desktop / 760 tablet / 900 mobile, vedi .booking-frame in globals.css).
+   * Override in px dell'altezza visibile del riquadro
+   * (default 960 desktop / 760 tablet / 900 mobile, vedi
+   * .booking-frame-wrap in globals.css).
    */
   height?: number;
   title?: string;
@@ -56,13 +57,14 @@ export default function BookingInline({
   }
 
   return (
-    <iframe
-      src={getBookingsEmbedUrl()}
-      title={title}
-      className="booking-frame"
-      style={heightOverride}
-      loading="lazy"
-      referrerPolicy="strict-origin-when-cross-origin"
-    />
+    <div className="booking-frame-wrap" style={heightOverride}>
+      <iframe
+        src={getBookingsEmbedUrl()}
+        title={title}
+        className="booking-frame"
+        loading="lazy"
+        referrerPolicy="strict-origin-when-cross-origin"
+      />
+    </div>
   );
 }
