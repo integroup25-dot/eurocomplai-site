@@ -4,21 +4,27 @@ import { useCookieConsent } from "./CookieConsentProvider";
 import { getBookingsEmbedUrl, getBookingsPageUrl } from "@/lib/integrations";
 
 type Props = Readonly<{
+  /**
+   * Override in px dell'altezza responsive di default
+   * (960 desktop / 760 tablet / 900 mobile, vedi .booking-frame in globals.css).
+   */
   height?: number;
   title?: string;
 }>;
 
 export default function BookingInline({
-  height = 760,
+  height,
   title = "Prenota una demo · Microsoft Bookings",
 }: Props) {
   const { choices, ready, openSettings } = useCookieConsent();
+  const heightOverride = height ? { height: `${height}px` } : undefined;
 
-  if (!ready) return <div className="booking-gate booking-gate--loading" style={{ height }} />;
+  if (!ready)
+    return <div className="booking-gate booking-gate--loading" style={heightOverride} />;
 
   if (!choices?.functional) {
     return (
-      <div className="booking-gate" style={{ minHeight: height }}>
+      <div className="booking-gate" style={heightOverride}>
         <div className="booking-gate-inner">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <rect x="3" y="4" width="18" height="18" rx="3" />
@@ -53,14 +59,8 @@ export default function BookingInline({
     <iframe
       src={getBookingsEmbedUrl()}
       title={title}
-      style={{
-        width: "100%",
-        height: `${height}px`,
-        border: "1px solid var(--border-1)",
-        borderRadius: "16px",
-        background: "var(--bg)",
-        display: "block",
-      }}
+      className="booking-frame"
+      style={heightOverride}
       loading="lazy"
       referrerPolicy="strict-origin-when-cross-origin"
     />

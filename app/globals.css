@@ -3173,7 +3173,15 @@ main {
 }
 .cookie-btn--ghost:hover { color: var(--ink); border-color: var(--border-1); }
 
-/* Booking consent gate */
+/* Booking embed + consent gate */
+.booking-frame {
+  display: block;
+  width: 100%;
+  height: 960px;
+  border: 1px solid var(--border-1);
+  border-radius: 16px;
+  background: var(--bg);
+}
 .booking-gate {
   display: flex;
   align-items: center;
@@ -3181,6 +3189,7 @@ main {
   border: 1px solid var(--border-1);
   border-radius: 16px;
   background: var(--surface);
+  min-height: 960px;
 }
 .booking-gate--loading { opacity: 0; }
 .booking-gate-inner {
@@ -3206,6 +3215,16 @@ main {
 .booking-gate-inner .cookie-btn--primary {
   flex: none;
   padding: 10px 22px;
+}
+
+@media (max-width: 920px) {
+  .booking-frame { height: 760px; }
+  .booking-gate { min-height: 760px; }
+}
+
+@media (max-width: 620px) {
+  .booking-frame { height: 900px; }
+  .booking-gate { min-height: 900px; }
 }
 
 @media (max-width: 520px) {
