@@ -13,14 +13,16 @@ type Props = {
 const COPY = {
   scrivici: {
     heading: "Scrivici una domanda specifica",
+    placeholderLabel: "Via email",
     placeholderBody:
-      "Per ora rispondiamo via email: descrivi la tua situazione e ti rispondiamo entro 2 giorni lavorativi, sempre da noi.",
+      "Descrivi la tua situazione in una email: ti rispondiamo entro 2 giorni lavorativi, sempre uno di noi.",
     iframeTitle: "Scrivici · Form Tally",
   },
   earlyAccess: {
     heading: "Candidati al programma early access",
+    placeholderLabel: "Candidature aperte",
     placeholderBody:
-      "Il programma early access è in apertura. Scrivici intanto via email — ti contattiamo quando partono le prime onboarding.",
+      "Il programma early access è in apertura. Scrivici via email e ti contattiamo quando partono le prime onboarding.",
     iframeTitle: "Early access · Form Tally",
   },
 };
@@ -67,7 +69,7 @@ export default function TallyPlaceholder({ variant, title, height = 640 }: Props
           color: "var(--accent)",
         }}
       >
-        Form in arrivo
+        {copy.placeholderLabel}
       </div>
       <h3
         style={{
