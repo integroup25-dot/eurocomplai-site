@@ -12,6 +12,10 @@
  * etichette per validarli e scriverli nell'email di notifica. Chi aggiunge o
  * rinomina un'opzione qui deve farlo anche lì e ripubblicare la funzione:
  * un codice sconosciuto viene rifiutato con un 400.
+ *
+ * Lo stesso set è usato dalla landing statica /prenota-demo/
+ * (public/prenota-demo/index.html), che ne ha una copia nel proprio script:
+ * va allineata anche quella.
  */
 
 export const QUALIFICATION_SET = "eurocomplai-demo";
