@@ -39,6 +39,7 @@ export async function logConsent(
   choices: ConsentChoices,
   action: "accept_all" | "reject_all" | "custom"
 ): Promise<void> {
+  if (!supabase) return;
   try {
     await supabase.rpc("log_consent", {
       p_session_id: getOrCreateSessionId(),
