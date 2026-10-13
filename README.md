@@ -53,6 +53,7 @@ site/
 ├── lib/
 │   └── integrations.ts         # URL Microsoft Bookings + Tally — modifica qui per attivare i form
 ├── public/
+│   ├── prenota-demo/index.html # landing statica (HTML autonomo, fuori da Next): questionario + form → contact-notify
 │   ├── favicon.svg             # bracketed [/] vettoriale
 │   ├── favicon-16.png
 │   ├── favicon-32.png
