@@ -3,7 +3,6 @@ import Footer from "@/components/Footer";
 import SemaphoreDots from "@/components/SemaphoreDots";
 import BookingInline from "@/components/BookingInline";
 import TallyPlaceholder from "@/components/TallyPlaceholder";
-import DemoRequestForm from "@/components/DemoRequestForm";
 
 export const metadata: Metadata = {
   title: "Richiedi una demo",
@@ -141,15 +140,13 @@ export default function DemoPage() {
                 Non vi serve un calendario? <span className="accent">Scriveteci.</span>
               </h2>
               <p className="section-sub">
-                Per richiedere la demo senza scegliere subito uno slot o per candidarvi al
-                programma early access, due canali separati. Risposta entro 2 giorni lavorativi, sempre da noi.
+                Per domande specifiche o per candidarvi al programma early access, due canali
+                separati. Risposta entro 2 giorni lavorativi, sempre da noi.
               </p>
 
               <div className="contact-grid">
-                <div id="scrivici-form" className="demo-form-card">
-                  <div className="demo-form-card-eyebrow">Richiesta demo</div>
-                  <h3>Raccontaci il tuo caso in quattro domande</h3>
-                  <DemoRequestForm />
+                <div id="scrivici-form">
+                  <TallyPlaceholder variant="scrivici" />
                 </div>
                 <div id="early-access">
                   <TallyPlaceholder variant="earlyAccess" />

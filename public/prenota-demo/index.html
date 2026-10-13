@@ -856,11 +856,11 @@
     const CTA = "Prenota una demo di EurocomplAI";
 
     // Questionario di qualificazione, prima dei dati di contatto. Le risposte
-    // viaggiano come codici con qualificationSet "eurocomplai-demo", lo stesso
-    // set del modulo di /demo/ (lib/demoQualifica.ts). La Edge Function
-    // contact-notify (repo integroup.eu) ne tiene una copia per validarli e
-    // rifiuta con un 400 i codici che non conosce: chi cambia un'opzione qui
-    // deve cambiarla anche in lib/demoQualifica.ts e nella funzione.
+    // viaggiano come codici con qualificationSet "eurocomplai-demo". La Edge
+    // Function contact-notify (repo integroup.eu) ne tiene una copia per
+    // validarli e scriverli nell'email di notifica, e rifiuta con un 400 i
+    // codici che non conosce: chi cambia un'opzione qui deve cambiarla anche
+    // nella funzione e ripubblicarla.
     const QUALIFICATION_SET = "eurocomplai-demo";
     const DOMANDE = [
       {

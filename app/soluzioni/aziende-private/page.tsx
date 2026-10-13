@@ -34,10 +34,10 @@ export default function SoluzioniAziendePrivatePage() {
               </p>
 
               <div className="hero-ctas" style={{ marginBottom: "8px" }}>
-                <Link href="/demo/" className="btn btn-primary">
+                <a href="/prenota-demo/" className="btn btn-primary">
                   Richiedi una demo per le aziende
                   <ArrowIcon />
-                </Link>
+                </a>
                 <Link href="/demo/" className="btn btn-ghost">
                   Scarica il self-assessment AI Act per aziende
                 </Link>
@@ -658,10 +658,10 @@ export default function SoluzioniAziendePrivatePage() {
                   capire se EurocomplAI funziona nel vostro contesto.
                 </p>
                 <div className="hero-ctas">
-                  <Link href="/demo/" className="btn btn-primary">
+                  <a href="/prenota-demo/" className="btn btn-primary">
                     Richiedi una demo per le aziende
                     <ArrowIcon />
-                  </Link>
+                  </a>
                   <Link href="/demo/" className="btn btn-ghost">
                     Scarica il self-assessment AI Act
                   </Link>

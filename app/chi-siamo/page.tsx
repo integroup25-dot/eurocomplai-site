@@ -308,9 +308,9 @@ export default function ChiSiamoPage() {
                     Scrivici per una conversazione
                     <ArrowIcon />
                   </Link>
-                  <Link href="/demo/" className="btn btn-ghost">
+                  <a href="/prenota-demo/" className="btn btn-ghost">
                     Richiedi una demo
-                  </Link>
+                  </a>
                 </div>
               </div>
             </div>

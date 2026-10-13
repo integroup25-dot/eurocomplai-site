@@ -565,10 +565,10 @@ export default function SoluzioniSanitaPage() {
                   funziona nel vostro contesto.
                 </p>
                 <div className="hero-ctas">
-                  <Link href="/demo/" className="btn btn-primary">
+                  <a href="/prenota-demo/" className="btn btn-primary">
                     Richiedi una demo per la sanità
                     <ArrowIcon />
-                  </Link>
+                  </a>
                   <Link href="/demo/" className="btn btn-ghost">
                     Scarica la checklist AI Act
                   </Link>

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import Footer from "@/components/Footer";
 import ArrowIcon from "@/components/ArrowIcon";
 import SemaphoreDots from "@/components/SemaphoreDots";
@@ -30,10 +29,10 @@ export default function SoluzioniPaPage() {
               </p>
 
               <div className="hero-ctas" style={{ marginBottom: "8px" }}>
-                <Link href="/demo/" className="btn btn-primary">
+                <a href="/prenota-demo/" className="btn btn-primary">
                   Richiedi una demo per la PA
                   <ArrowIcon />
-                </Link>
+                </a>
                 <a href="#" className="btn btn-ghost">Scarica la checklist FRIA per enti pubblici</a>
               </div>
 
@@ -358,10 +357,10 @@ export default function SoluzioniPaPage() {
                 <h2>Una FRIA da redigere, un'adozione AI da valutare, <span className="accent">un adeguamento NIS2 da consegnare</span>?</h2>
                 <p className="section-sub">Una demo di 30 minuti con qualcuno che ha lavorato in mandati di compliance presso pubbliche amministrazioni italiane è il modo più rapido per capire se EurocomplAI funziona nel vostro ente.</p>
                 <div className="hero-ctas">
-                  <Link href="/demo/" className="btn btn-primary">
+                  <a href="/prenota-demo/" className="btn btn-primary">
                     Richiedi una demo per la PA
                     <ArrowIcon />
-                  </Link>
+                  </a>
                   <a href="#" className="btn btn-ghost">Scarica la checklist FRIA</a>
                 </div>
               </div>
