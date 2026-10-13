@@ -72,6 +72,11 @@ export default function DemoRequestForm() {
       setStatus("success");
       return;
     }
+    if (!supabase) {
+      // build senza variabili Supabase: resta solo l'email di riserva
+      setStatus("error");
+      return;
+    }
     setStatus("sending");
     const { error } = await supabase.functions.invoke("contact-notify", {
       body: {
