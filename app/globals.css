@@ -3293,3 +3293,134 @@ main {
   padding-top: 2px;
   min-width: 32px;
 }
+
+/* ====================  RICHIESTA DEMO (questionario + contatti)  ==================== */
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+.demo-form-card {
+  position: relative;
+  overflow: hidden;
+  padding: 26px 26px 24px;
+  background: var(--panel);
+  border: 1px solid var(--border-1);
+  border-radius: 16px;
+}
+.demo-form-card::before {
+  content: "";
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(to right, var(--accent), var(--accent-2), var(--accent));
+}
+.demo-form-card-eyebrow {
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+.demo-form-card h3 {
+  font-family: var(--font-geist-sans), sans-serif;
+  font-size: 19px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.015em;
+  line-height: 1.3;
+  margin: 0 0 18px;
+}
+.demo-form { display: flex; flex-direction: column; gap: 14px; text-align: left; }
+.demo-form-progress-label {
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+.demo-form-progress { height: 3px; border-radius: 3px; background: var(--border-1); overflow: hidden; }
+.demo-form-progress > div {
+  height: 100%;
+  background: var(--accent);
+  transition: width 0.35s cubic-bezier(.22,1,.36,1);
+}
+.demo-form-fieldset { border: none; margin: 0; padding: 0; min-width: 0; }
+.demo-form-fieldset legend { padding: 0; margin-bottom: 14px; }
+.demo-form-title {
+  display: block;
+  margin: 0;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  outline: none;
+}
+.demo-form-note { margin: 6px 0 0; font-size: 14.5px; line-height: 1.5; color: var(--ink-2); }
+.demo-form-options { display: grid; gap: 8px; }
+.demo-form-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--border-1);
+  border-radius: 10px;
+  background: var(--bg);
+  font-size: 14.5px;
+  line-height: 1.45;
+  color: var(--ink-2);
+  cursor: pointer;
+  transition: border-color 0.18s ease, background 0.18s ease, color 0.18s ease;
+}
+.demo-form-option:hover { border-color: var(--border-3); color: var(--ink); }
+.demo-form-option:has(input:checked) {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--ink);
+}
+.demo-form-option:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 2px; }
+.demo-form-option input { margin-top: 3px; flex-shrink: 0; accent-color: var(--accent); }
+.demo-form-row { display: flex; gap: 12px; flex-wrap: wrap; }
+.demo-form-row > label { flex: 1 1 200px; }
+.demo-form-field {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border-1);
+  background: var(--bg);
+  color: var(--ink);
+  font-family: inherit;
+  font-size: 14.5px;
+  transition: border-color 0.18s ease, background 0.18s ease;
+}
+.demo-form-field::placeholder { color: var(--ink-3); }
+.demo-form-field:focus { border-color: var(--accent); background: var(--panel-bright); outline: none; }
+textarea.demo-form-field { resize: vertical; min-height: 84px; }
+.demo-form-hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.demo-form-consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ink-2);
+}
+.demo-form-consent input { margin-top: 3px; flex-shrink: 0; accent-color: var(--accent); }
+.demo-form-error { font-size: 14px; color: var(--accent); }
+.demo-form-error a { color: inherit; text-decoration: underline; }
+.demo-form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 2px;
+}
+.demo-form-actions .btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+.demo-form-msg {
+  padding: 18px;
+  border-radius: 12px;
+  border: 1px solid var(--border-1);
+  background: rgba(255,255,255,0.04);
+}
