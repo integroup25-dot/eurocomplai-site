@@ -99,10 +99,10 @@ export default function SiteHeader() {
               <Link href="/chi-siamo/">Chi siamo</Link>
             </li>
           </ul>
-          <Link href="/demo/" className="btn btn-primary">
+          <a href="/prenota-demo/" className="btn btn-primary">
             Prenota la demo
             <ArrowIcon />
-          </Link>
+          </a>
         </nav>
 
         <button
@@ -140,10 +140,10 @@ export default function SiteHeader() {
             <Link href="/chi-siamo/">Chi siamo</Link>
           </li>
         </ul>
-        <Link href="/demo/" className="btn btn-primary mobile-cta">
+        <a href="/prenota-demo/" className="btn btn-primary mobile-cta">
           Prenota la demo
           <ArrowIcon />
-        </Link>
+        </a>
       </div>
     </header>
   );

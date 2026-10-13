@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import Footer from "@/components/Footer";
 import ArrowIcon from "@/components/ArrowIcon";
 import SemaphoreDots from "@/components/SemaphoreDots";
@@ -1218,10 +1217,10 @@ export default function ComeFunzionaPage() {
                   executive.
                 </p>
                 <div className="hero-ctas">
-                  <Link href="/demo/" className="btn btn-primary">
+                  <a href="/prenota-demo/" className="btn btn-primary">
                     Richiedi una demo
                     <ArrowIcon />
-                  </Link>
+                  </a>
                   <a href="#capacita" className="btn btn-ghost">
                     Esplora gli scenari per il tuo settore
                   </a>

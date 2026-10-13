@@ -473,10 +473,10 @@ export default function HomePage() {
                   tutti i giorni — non un commerciale.
                 </p>
                 <div className="hero-ctas">
-                  <Link href="/demo/" className="btn btn-primary">
+                  <a href="/prenota-demo/" className="btn btn-primary">
                     Prenota la demo
                     <ArrowIcon />
-                  </Link>
+                  </a>
                   <Link href="/demo/#scrivici" className="btn btn-ghost">
                     Scrivici una domanda specifica
                   </Link>

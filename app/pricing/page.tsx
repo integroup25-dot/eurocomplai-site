@@ -112,9 +112,9 @@ export default function PricingPage() {
                     Richiedi un preventivo
                     <ArrowIcon />
                   </Link>
-                  <Link href="/demo/" className="btn btn-ghost">
+                  <a href="/prenota-demo/" className="btn btn-ghost">
                     Prenota una demo
-                  </Link>
+                  </a>
                 </div>
               </div>
             </div>

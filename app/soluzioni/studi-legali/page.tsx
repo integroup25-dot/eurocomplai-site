@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import Footer from "@/components/Footer";
 import ArrowIcon from "@/components/ArrowIcon";
 import SemaphoreDots from "@/components/SemaphoreDots";
@@ -33,10 +32,10 @@ export default function SoluzioniStudiLegaliPage() {
               </p>
 
               <div className="hero-ctas" style={{ marginBottom: 8 }}>
-                <Link href="/demo/" className="btn btn-primary">
+                <a href="/prenota-demo/" className="btn btn-primary">
                   Richiedi una demo per studi legali
                   <ArrowIcon />
-                </Link>
+                </a>
                 <a href="#" className="btn btn-ghost">
                   Scarica il profilo EurocomplAI per studi legali
                 </a>
@@ -636,10 +635,10 @@ export default function SoluzioniStudiLegaliPage() {
                   se EurocomplAI funziona nel vostro studio.
                 </p>
                 <div className="hero-ctas">
-                  <Link href="/demo/" className="btn btn-primary">
+                  <a href="/prenota-demo/" className="btn btn-primary">
                     Richiedi una demo per studi legali
                     <ArrowIcon />
-                  </Link>
+                  </a>
                   <a href="#" className="btn btn-ghost">
                     Scarica il profilo per studi legali
                   </a>
