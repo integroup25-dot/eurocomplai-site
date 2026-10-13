@@ -102,6 +102,10 @@
     .topbar-cta a.tel{font-size:13px;color:var(--ink-2);font-family:GeistMono,monospace}
     .topbar-cta a.tel:hover{color:var(--ink)}
     @media (max-width:720px){ .topbar-cta a.tel{display:none} }
+    .btn .back{width:14px;height:14px;transition:transform .18s}
+    .btn:hover .back{transform:translateX(-2px)}
+    .home-corto,.btn .casa{display:none}
+    @media (max-width:480px){ .home-lungo{display:none} .home-corto{display:inline} }
 
     .hero{
       position:relative;overflow:hidden;padding:72px 0 80px;min-height:calc(100svh - 64px);
@@ -360,11 +364,26 @@
       .topbar{padding:12px 16px}
       .topbar .logomark.lg{font-size:16px}
       .topbar .btn{padding:9px 14px;font-size:13px}
+      .topbar-cta{gap:10px}
       .topbar .btn .arrow{display:none}
       .btn{white-space:normal;text-align:center}
       .hero-kicker{flex-direction:column;align-items:flex-start;gap:8px}
       .hero .eyebrow{font-size:10.5px;letter-spacing:.07em}
     }
+    /* Telefoni stretti: la barra in alto deve stare su una riga. "Home"
+       diventa l'icona della casa (il testo resta per gli screen reader) e,
+       sotto i 350px, il pulsante di prenotazione si accorcia in "Prenota". */
+    @media (max-width:400px){
+      .topbar{gap:8px}
+      .topbar-cta{gap:8px}
+      .topbar .logomark.lg{font-size:15px}
+      .topbar .btn{padding:9px 12px}
+      .topbar .btn-home{padding:9px 10px}
+      .btn-home .back{display:none}
+      .btn-home .casa{display:block;width:16px;height:16px}
+      .home-corto{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+    }
+    @media (max-width:350px){ .cta-lungo{display:none} }
   </style>
 </head>
 <body>
@@ -374,7 +393,12 @@
     </a>
     <div class="topbar-cta">
       <a class="tel" href="tel:+3902320626828">+39 02 320 626 828</a>
-      <a class="btn btn-primary" href="#prenota-demo">Prenota una demo
+      <a class="btn btn-ghost btn-home" href="/">
+        <svg class="back" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        <svg class="casa" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 7.5L8 2.5l6 5M3.75 6.5v6.75h3v-3.5h2.5v3.5h3V6.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        <span class="home-lungo">Torna alla home</span><span class="home-corto">Home</span>
+      </a>
+      <a class="btn btn-primary" href="#prenota-demo"><span>Prenota<span class="cta-lungo"> una demo</span></span>
         <svg class="arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 12l4-4-4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
       </a>
     </div>
