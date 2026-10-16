@@ -29,6 +29,13 @@ const CATEGORIES: {
     services: "Microsoft Bookings (prenotazione demo), Tally (form di contatto)",
   },
   {
+    key: "analytics",
+    label: "Statistiche",
+    description:
+      "Ci dicono in forma aggregata quante persone visitano il sito, da dove arrivano e quali pagine leggono, per migliorarlo.",
+    services: "Google Analytics",
+  },
+  {
     key: "marketing",
     label: "Marketing",
     description:
@@ -41,7 +48,7 @@ export default function CookieBanner() {
   const { choices, ready, bannerOpen, openSettings, acceptAll, rejectAll, saveChoices } =
     useCookieConsent();
   const [expanded, setExpanded] = useState(false);
-  const [local, setLocal] = useState<ConsentChoices>({ functional: false, marketing: false });
+  const [local, setLocal] = useState<ConsentChoices>({ functional: false, analytics: false, marketing: false });
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -50,7 +57,11 @@ export default function CookieBanner() {
 
   useEffect(() => {
     if (bannerOpen) {
-      setLocal({ functional: choices?.functional ?? false, marketing: choices?.marketing ?? false });
+      setLocal({
+        functional: choices?.functional ?? false,
+        analytics: choices?.analytics ?? false,
+        marketing: choices?.marketing ?? false,
+      });
       setExpanded(false);
     }
   }, [bannerOpen, choices]);
@@ -82,8 +93,9 @@ export default function CookieBanner() {
 
             <p className="cookie-banner-desc">
               Utilizziamo cookie per garantire il corretto funzionamento del sito e, con il tuo
-              consenso, per abilitare funzionalità come la prenotazione di demo e per misurare le
-              nostre campagne pubblicitarie con Google Ads. Puoi accettare tutti i cookie, rifiutare
+              consenso, per abilitare funzionalità come la prenotazione di demo, per capire come viene
+              usato il sito (Google Analytics) e per misurare le nostre campagne pubblicitarie (Google
+              Ads). Puoi accettare tutti i cookie, rifiutare
               quelli non essenziali o personalizzare le tue scelte.{" "}
               <Link href="/cookie/" className="cookie-link">
                 Cookie policy

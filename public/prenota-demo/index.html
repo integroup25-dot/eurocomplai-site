@@ -349,6 +349,13 @@
     .ck a{color:var(--amber)}
     .ck-actions{display:flex;gap:8px;flex-wrap:wrap}
     .ck-actions .btn{flex:1;justify-content:center;padding:10px 14px;font-size:13.5px}
+    .ck-choices{display:flex;flex-direction:column;gap:8px;margin:0 0 14px}
+    .ck-choices[hidden]{display:none}
+    .ck-choices label{display:flex;gap:10px;align-items:center;cursor:pointer}
+    .ck-choices input{width:16px;height:16px;accent-color:var(--amber)}
+    .ck-choices strong{color:var(--ink);font-weight:600}
+    .ck-more{display:block;margin:10px auto 0;background:none;border:0;padding:0;font:inherit;font-size:12.5px;color:var(--ink-2);text-decoration:underline;cursor:pointer}
+    .ck-more:hover{color:var(--ink)}
     .foot-contact{text-transform:none;letter-spacing:0;font-family:GeistSans,sans-serif;font-size:13px;color:var(--ink-2)}
 
     .js [data-reveal]{opacity:0;transform:translateY(28px);transition:opacity .85s cubic-bezier(.22,1,.36,1),transform .85s cubic-bezier(.22,1,.36,1)}
@@ -1109,62 +1116,80 @@
   <!-- Banner cookie della landing. Questa pagina è HTML statico e non monta il
        banner React del sito: usa però la stessa chiave ec_consent_v1 (stesso
        dominio, stesso localStorage) e lo stesso log su Supabase, quindi una
-       scelta fatta qui vale anche sul resto del sito e viceversa. Il tag di
-       Google Ads parte solo dopo "Accetta"; la logica è la stessa di
-       lib/googleAds.ts. -->
+       scelta fatta qui vale anche sul resto del sito e viceversa. Il tag Google
+       parte solo dopo il consenso, con Google Analytics e Google Ads attivati
+       ciascuno dalla propria categoria; la logica è la stessa di
+       lib/googleTag.ts. -->
   <div class="ck" id="cookie-banner" role="dialog" aria-label="Preferenze cookie" hidden>
     <p class="ck-title">Cookie</p>
-    <p>Usiamo cookie tecnici, necessari al sito, e, solo se li accetti, cookie di marketing di
-      Google Ads per misurare le nostre campagne pubblicitarie. Puoi cambiare idea in ogni momento
-      da «Gestisci cookie» in fondo alla pagina. Dettagli nella
-      <a href="https://eurocomplai.com/cookie/">Cookie policy</a>.</p>
+    <p>Usiamo cookie tecnici, necessari al sito, e, solo se li accetti, cookie statistici
+      (Google Analytics) e di marketing (Google Ads) per capire come viene usato il sito e misurare
+      le nostre campagne. Puoi cambiare idea in ogni momento da «Gestisci cookie» in fondo alla
+      pagina. Dettagli nella <a href="https://eurocomplai.com/cookie/">Cookie policy</a>.</p>
+    <div class="ck-choices" hidden>
+      <label><input type="checkbox" data-cat="analytics" /> <span><strong>Statistiche</strong> — Google Analytics</span></label>
+      <label><input type="checkbox" data-cat="marketing" /> <span><strong>Marketing</strong> — Google Ads</span></label>
+    </div>
     <div class="ck-actions">
       <button type="button" class="btn btn-ghost" data-cookie="reject">Rifiuta</button>
-      <button type="button" class="btn btn-primary" data-cookie="accept">Accetta</button>
+      <button type="button" class="btn btn-primary" data-cookie="accept">Accetta tutti</button>
     </div>
+    <button type="button" class="ck-more" data-cookie="custom">Scegli per categoria</button>
   </div>
   <script>
     (() => {
-      // Allineare a lib/cookieConsent.ts (chiave e POLICY_VERSION) e a lib/googleAds.ts.
+      // Allineare a lib/cookieConsent.ts (chiave e POLICY_VERSION) e a lib/googleTag.ts.
       const KEY = "ec_consent_v1";
       const VERSION = "1.1";
       const ADS_ID = "AW-18468380524";
+      const GA_ID = "G-PRFHG70BE2";
       const LOG_URL = "https://qjlbbbbhfxagzubjyvje.supabase.co/rest/v1/rpc/log_consent";
       const banner = document.getElementById("cookie-banner");
-      let loaded = false;
+      const choicesBox = banner.querySelector(".ck-choices");
+      const moreBtn = banner.querySelector('[data-cookie="custom"]');
+      const box = (cat) => banner.querySelector('[data-cat="' + cat + '"]');
+      let scriptLoaded = false;
+      const configured = new Set();
 
       window.dataLayer = window.dataLayer || [];
       function gtag() { window.dataLayer.push(arguments); }
+      const adsConsent = (v) => ({ ad_storage: v, ad_user_data: v, ad_personalization: v });
+      const analyticsConsent = (v) => ({ analytics_storage: v });
 
-      function enableAds() {
-        const first = !loaded;
-        if (first) {
-          loaded = true;
-          window.gtag = gtag;
-          gtag("consent", "default", { ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied", analytics_storage: "denied" });
-        }
-        gtag("consent", "update", { ad_storage: "granted", ad_user_data: "granted", ad_personalization: "granted" });
-        if (first) {
-          const s = document.createElement("script");
-          s.async = true;
-          s.src = "https://www.googletagmanager.com/gtag/js?id=" + ADS_ID;
-          document.head.appendChild(s);
-          gtag("js", new Date());
-          gtag("config", ADS_ID);
-        }
-      }
-
-      function disableAds() {
-        if (!loaded) return;
-        gtag("consent", "update", { ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
+      function deleteCookies(filtro) {
         const domain = location.hostname.replace(/^www\./, "");
         document.cookie.split(";").forEach((c) => {
           const name = c.split("=")[0].trim();
-          if (!/^_gcl_/.test(name)) return;
+          if (!filtro.test(name)) return;
           ["", "; domain=" + domain, "; domain=." + domain].forEach((d) => {
             document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/" + d;
           });
         });
+      }
+
+      function applyConsent(ads, analytics) {
+        if (!scriptLoaded && !ads && !analytics) return;
+        if (!scriptLoaded) {
+          window.gtag = gtag;
+          gtag("consent", "default", { ...adsConsent("denied"), ...analyticsConsent("denied") });
+        }
+        gtag("consent", "update", { ...adsConsent(ads ? "granted" : "denied"), ...analyticsConsent(analytics ? "granted" : "denied") });
+        if (!scriptLoaded) {
+          scriptLoaded = true;
+          const s = document.createElement("script");
+          s.async = true;
+          s.src = "https://www.googletagmanager.com/gtag/js?id=" + (ads ? ADS_ID : GA_ID);
+          document.head.appendChild(s);
+          gtag("js", new Date());
+        }
+        if (ads && !configured.has(ADS_ID)) { configured.add(ADS_ID); gtag("config", ADS_ID); }
+        if (analytics && !configured.has(GA_ID)) { configured.add(GA_ID); gtag("config", GA_ID); }
+        const daCancellare = [!ads && /^_gcl_/, !analytics && /^_ga(_|$)/].filter(Boolean);
+        if (!daCancellare.length) return;
+        const cancella = () => daCancellare.forEach(deleteCookies);
+        cancella();
+        // gtag.js elabora la coda in modo asincrono: si ripassa quando ha recepito il "denied".
+        setTimeout(cancella, 1500);
       }
 
       function read() {
@@ -1182,20 +1207,20 @@
         } catch (e) { return crypto.randomUUID(); }
       }
 
-      function choose(marketing) {
+      function choose(analytics, marketing, action) {
         const prev = read();
-        // Il banner della landing chiede solo del marketing: la scelta sui
-        // cookie funzionali fatta altrove sul sito resta com'è.
-        const choices = { functional: prev ? Boolean(prev.functional) : false, marketing };
+        // Il banner della landing chiede solo di statistiche e marketing: la
+        // scelta sui cookie funzionali fatta altrove sul sito resta com'è.
+        const choices = { functional: prev ? Boolean(prev.functional) : false, analytics, marketing };
         try { localStorage.setItem(KEY, JSON.stringify({ ...choices, version: VERSION })); } catch (e) {}
         banner.hidden = true;
-        marketing ? enableAds() : disableAds();
+        applyConsent(marketing, analytics);
         fetch(LOG_URL, {
           method: "POST",
           headers: { "Content-Type": "application/json", apikey: ANON, Authorization: "Bearer " + ANON },
           body: JSON.stringify({
             p_session_id: sessionId(),
-            p_action: marketing ? "accept_all" : "reject_all",
+            p_action: action,
             p_choices: choices,
             p_policy_version: VERSION,
             p_page_url: location.pathname,
@@ -1205,13 +1230,30 @@
         }).catch(() => {});
       }
 
-      banner.querySelector('[data-cookie="accept"]').addEventListener("click", () => choose(true));
-      banner.querySelector('[data-cookie="reject"]').addEventListener("click", () => choose(false));
-      document.querySelector("[data-cookie-open]").addEventListener("click", () => { banner.hidden = false; });
+      function open() {
+        const stored = read();
+        box("analytics").checked = Boolean(stored && stored.analytics);
+        box("marketing").checked = Boolean(stored && stored.marketing);
+        choicesBox.hidden = true;
+        moreBtn.textContent = "Scegli per categoria";
+        banner.hidden = false;
+      }
+
+      banner.querySelector('[data-cookie="accept"]').addEventListener("click", () => choose(true, true, "accept_all"));
+      banner.querySelector('[data-cookie="reject"]').addEventListener("click", () => choose(false, false, "reject_all"));
+      moreBtn.addEventListener("click", () => {
+        if (choicesBox.hidden) {
+          choicesBox.hidden = false;
+          moreBtn.textContent = "Salva le scelte";
+        } else {
+          choose(box("analytics").checked, box("marketing").checked, "custom");
+        }
+      });
+      document.querySelector("[data-cookie-open]").addEventListener("click", open);
 
       const stored = read();
-      if (stored && stored.marketing) enableAds();
-      if (!stored) banner.hidden = false;
+      if (stored) applyConsent(Boolean(stored.marketing), Boolean(stored.analytics));
+      else open();
     })();
   </script>
 </body>

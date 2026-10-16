@@ -93,8 +93,9 @@ export default function CookiePage() {
                 </ul>
                 <p>
                   Il presente sito utilizza cookie tecnici (prima parte), cookie funzionali di
-                  terza parte e, <strong>solo previo consenso</strong>, cookie di marketing di
-                  Google Ads. Non vengono impiegati cookie analitici di terza parte.
+                  terza parte e, <strong>solo previo consenso distinto per ciascuna
+                  categoria</strong>, cookie statistici di Google Analytics e cookie di marketing di
+                  Google Ads.
                 </p>
               </section>
 
@@ -271,18 +272,71 @@ export default function CookiePage() {
                 </p>
               </section>
 
-              {/* 5. Cookie di marketing */}
+              {/* 5. Cookie statistici */}
               <section className="privacy-section">
-                <h2 className="privacy-h2">5. Cookie di marketing: Google Ads</h2>
+                <h2 className="privacy-h2">5. Cookie statistici: Google Analytics</h2>
+                <p>
+                  Solo se l&apos;utente presta il consenso alla categoria &ldquo;Statistiche&rdquo;,
+                  il sito attiva <strong>Google Analytics 4</strong> (identificativo G-PRFHG70BE2),
+                  fornito da Google Ireland Limited, Gordon House, Barrow Street, Dublino&nbsp;4,
+                  Irlanda. Il servizio misura in forma aggregata quante persone visitano il sito, da
+                  quali canali arrivano e quali pagine consultano, per migliorarne contenuti e
+                  struttura. Google Analytics 4 non registra né conserva l&apos;indirizzo IP completo
+                  dell&apos;utente, e il Titolare non usa questi dati per profilare i singoli visitatori.
+                </p>
+                <div className="privacy-table-wrap">
+                  <table className="privacy-table">
+                    <thead>
+                      <tr>
+                        <th>Nome</th>
+                        <th>Finalità</th>
+                        <th>Durata</th>
+                        <th>Parte</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>_ga</code></td>
+                        <td>Distingue i visitatori con un identificativo casuale, per contare le visite senza ripetizioni.</td>
+                        <td>2 anni</td>
+                        <td>Prima parte / Google</td>
+                      </tr>
+                      <tr>
+                        <td><code>_ga_PRFHG70BE2</code></td>
+                        <td>Mantiene lo stato della sessione di navigazione per la proprietà Analytics del sito.</td>
+                        <td>2 anni</td>
+                        <td>Prima parte / Google</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <p>
+                  Google tratta i dati come responsabile del trattamento per conto del Titolare e può
+                  trasferirli negli Stati Uniti a Google LLC, che aderisce all&apos;EU-U.S. Data Privacy
+                  Framework (decisione di adeguatezza della Commissione Europea del
+                  10&nbsp;luglio&nbsp;2023). Il consenso alle statistiche è indipendente da quello al
+                  marketing: si può accettare l&apos;uno e rifiutare l&apos;altro. Alla revoca il sito
+                  cancella i cookie <code>_ga</code>. Componente di disattivazione per il browser:{" "}
+                  <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer" className="privacy-link">
+                    tools.google.com/dlpage/gaoptout
+                  </a>
+                  .
+                </p>
+              </section>
+
+              {/* 6. Cookie di marketing */}
+              <section className="privacy-section">
+                <h2 className="privacy-h2">6. Cookie di marketing: Google Ads</h2>
                 <p>
                   Solo se l&apos;utente presta il consenso alla categoria &ldquo;Marketing&rdquo;,
-                  il sito carica il tag di <strong>Google Ads</strong> (gtag.js, identificativo
-                  AW-18468380524), fornito da Google Ireland Limited, Gordon House, Barrow Street,
+                  il sito attiva <strong>Google Ads</strong> (identificativo AW-18468380524; lo
+                  stesso tag Google gtag.js serve anche Google Analytics, ma ciascuna destinazione si
+                  attiva solo con il proprio consenso), fornito da Google Ireland Limited, Gordon House, Barrow Street,
                   Dublino&nbsp;4, Irlanda. Il tag serve a misurare le conversioni delle campagne
                   pubblicitarie del Titolare &mdash; per esempio una richiesta di demo arrivata da
                   un annuncio &mdash; e consente a Google di mostrare annunci del Titolare
-                  all&apos;utente su altri siti (remarketing). Senza consenso il tag non viene
-                  caricato e il browser non contatta i server pubblicitari di Google.
+                  all&apos;utente su altri siti (remarketing). Senza consenso la destinazione Google
+                  Ads non viene attivata e il browser non contatta i server pubblicitari di Google.
                 </p>
                 <div className="privacy-table-wrap">
                   <table className="privacy-table">
@@ -336,19 +390,19 @@ export default function CookiePage() {
                 </p>
               </section>
 
-              {/* 6. Cookie non utilizzati */}
+              {/* 7. Cookie non utilizzati */}
               <section className="privacy-section">
-                <h2 className="privacy-h2">6. Cookie non utilizzati</h2>
+                <h2 className="privacy-h2">7. Cookie non utilizzati</h2>
                 <p>
                   Oltre a quanto descritto sopra, il presente sito <strong>non utilizza</strong>{" "}
-                  cookie analitici di terza parte (es. Google Analytics, Matomo) né altri strumenti
-                  di profilazione o marketing (es. Meta Pixel, LinkedIn Insight Tag).
+                  altri strumenti di analisi statistica (es. Matomo, Hotjar) né altri strumenti di
+                  profilazione o marketing (es. Meta Pixel, LinkedIn Insight Tag).
                 </p>
               </section>
 
-              {/* 7. Base giuridica */}
+              {/* 8. Base giuridica */}
               <section className="privacy-section">
-                <h2 className="privacy-h2">7. Base giuridica del trattamento</h2>
+                <h2 className="privacy-h2">8. Base giuridica del trattamento</h2>
                 <ul className="privacy-list">
                   <li>
                     <strong>Cookie tecnici:</strong> legittimo interesse del Titolare ex
@@ -361,6 +415,11 @@ export default function CookiePage() {
                     specifico, informato e revocabile in qualsiasi momento.
                   </li>
                   <li>
+                    <strong>Cookie statistici (Google Analytics):</strong> consenso dell&apos;utente ex
+                    art.&nbsp;6, par.&nbsp;1, lett.&nbsp;a) GDPR e art.&nbsp;122 del Codice privacy,
+                    prestato separatamente da quello al marketing e revocabile in qualsiasi momento.
+                  </li>
+                  <li>
                     <strong>Cookie di marketing (Google Ads):</strong> consenso dell&apos;utente ex
                     art.&nbsp;6, par.&nbsp;1, lett.&nbsp;a) GDPR e art.&nbsp;122 del Codice privacy
                     (D.Lgs.&nbsp;196/2003). Il rifiuto non limita l&apos;uso del sito e il consenso
@@ -370,11 +429,11 @@ export default function CookiePage() {
                 </ul>
               </section>
 
-              {/* 8. Gestione preferenze */}
+              {/* 9. Gestione preferenze */}
               <section className="privacy-section">
-                <h2 className="privacy-h2">8. Come gestire le preferenze cookie</h2>
+                <h2 className="privacy-h2">9. Come gestire le preferenze cookie</h2>
 
-                <h3 className="cookie-h3">8.1 Tramite il banner del sito</h3>
+                <h3 className="cookie-h3">9.1 Tramite il banner del sito</h3>
                 <p>
                   Al primo accesso al sito viene mostrato un banner che consente di accettare
                   tutti i cookie, rifiutare quelli non tecnici, o personalizzare le scelte
@@ -386,7 +445,7 @@ export default function CookiePage() {
                   riproposto anche a chi aveva già espresso una scelta.
                 </p>
 
-                <h3 className="cookie-h3">8.2 Tramite le impostazioni del browser</h3>
+                <h3 className="cookie-h3">9.2 Tramite le impostazioni del browser</h3>
                 <p>
                   Ciascun browser consente di bloccare o eliminare i cookie attraverso le
                   proprie impostazioni. Di seguito i link alle istruzioni per i principali browser:
@@ -418,7 +477,7 @@ export default function CookiePage() {
                   compromettere il corretto funzionamento di alcune funzionalità del sito.
                 </p>
 
-                <h3 className="cookie-h3">8.3 Opt-out dei servizi di terza parte</h3>
+                <h3 className="cookie-h3">9.3 Opt-out dei servizi di terza parte</h3>
                 <p>
                   In alternativa al banner, è possibile rifiutare i cookie di terza parte
                   direttamente presso i siti dei fornitori terzi:
@@ -437,6 +496,12 @@ export default function CookiePage() {
                     </a>
                   </li>
                   <li>
+                    <strong>Google Analytics:</strong>{" "}
+                    <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer" className="privacy-link">
+                      tools.google.com/dlpage/gaoptout
+                    </a>
+                  </li>
+                  <li>
                     <strong>Google (annunci):</strong>{" "}
                     <a href="https://adssettings.google.com" target="_blank" rel="noopener noreferrer" className="privacy-link">
                       adssettings.google.com
@@ -445,9 +510,9 @@ export default function CookiePage() {
                 </ul>
               </section>
 
-              {/* 9. Diritti */}
+              {/* 10. Diritti */}
               <section className="privacy-section">
-                <h2 className="privacy-h2">9. Diritti dell&apos;interessato</h2>
+                <h2 className="privacy-h2">10. Diritti dell&apos;interessato</h2>
                 <p>
                   In relazione al trattamento dei dati effettuato tramite cookie, l&apos;utente
                   può esercitare i diritti previsti dagli artt.&nbsp;15–22 GDPR (accesso,
@@ -465,9 +530,9 @@ export default function CookiePage() {
                 </p>
               </section>
 
-              {/* 10. Aggiornamenti */}
+              {/* 11. Aggiornamenti */}
               <section className="privacy-section">
-                <h2 className="privacy-h2">10. Aggiornamenti della Cookie Policy</h2>
+                <h2 className="privacy-h2">11. Aggiornamenti della Cookie Policy</h2>
                 <p>
                   Il Titolare si riserva di aggiornare la presente Cookie Policy a seguito di
                   modifiche normative, provvedimenti del Garante o variazioni nei servizi

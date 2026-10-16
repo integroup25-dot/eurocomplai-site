@@ -169,8 +169,8 @@ export default function PrivacyPage() {
                   <Link href="/cookie/" className="privacy-link">
                     Cookie Policy
                   </Link>
-                  : in particolare Google Ads, i cui dati possono essere trattati da Google LLC negli Stati Uniti
-                  sulla base dell&apos;EU-U.S. Data Privacy Framework.
+                  : in particolare Google Analytics e Google Ads, i cui dati possono essere trattati da Google LLC
+                  negli Stati Uniti sulla base dell&apos;EU-U.S. Data Privacy Framework.
                 </p>
                 <p>
                   Qualora tale trasferimento dovesse rendersi necessario e/o inevitabile per esigenze organizzative

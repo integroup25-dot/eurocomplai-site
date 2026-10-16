@@ -2,6 +2,7 @@ import { supabase } from "./supabase";
 
 export type ConsentChoices = {
   functional: boolean;
+  analytics: boolean;
   marketing: boolean;
 };
 
@@ -24,7 +25,11 @@ export function getStoredConsent(): ConsentChoices | null {
     if (!raw) return null;
     const parsed = JSON.parse(raw);
     if (parsed?.version !== POLICY_VERSION) return null;
-    return { functional: Boolean(parsed.functional), marketing: Boolean(parsed.marketing) };
+    return {
+      functional: Boolean(parsed.functional),
+      analytics: Boolean(parsed.analytics),
+      marketing: Boolean(parsed.marketing),
+    };
   } catch {
     return null;
   }
