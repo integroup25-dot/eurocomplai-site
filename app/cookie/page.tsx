@@ -277,7 +277,7 @@ export default function CookiePage() {
                 <h2 className="privacy-h2">5. Cookie statistici: Google Analytics</h2>
                 <p>
                   Solo se l&apos;utente presta il consenso alla categoria &ldquo;Statistiche&rdquo;,
-                  il sito attiva <strong>Google Analytics 4</strong> (identificativo G-CV5947P7JF),
+                  il sito attiva <strong>Google Analytics 4</strong> (identificativo G-HZG8ZDTQTT),
                   fornito da Google Ireland Limited, Gordon House, Barrow Street, Dublino&nbsp;4,
                   Irlanda. Il servizio misura in forma aggregata quante persone visitano il sito, da
                   quali canali arrivano e quali pagine consultano, per migliorarne contenuti e
@@ -302,7 +302,7 @@ export default function CookiePage() {
                         <td>Prima parte / Google</td>
                       </tr>
                       <tr>
-                        <td><code>_ga_CV5947P7JF</code></td>
+                        <td><code>_ga_HZG8ZDTQTT</code></td>
                         <td>Mantiene lo stato della sessione di navigazione per la proprietà Analytics del sito.</td>
                         <td>2 anni</td>
                         <td>Prima parte / Google</td>
