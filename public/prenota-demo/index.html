@@ -337,6 +337,18 @@
     .foot a:hover{color:var(--ink)}
     .foot .logomark{text-transform:none;letter-spacing:-.005em}
     .foot-legal{display:flex;gap:16px;flex-wrap:wrap}
+    .foot-legal button{background:none;border:0;padding:0;font:inherit;letter-spacing:inherit;text-transform:inherit;color:var(--ink-2);cursor:pointer}
+    .foot-legal button:hover{color:var(--ink)}
+
+    .ck{position:fixed;right:16px;bottom:16px;z-index:1000;width:min(380px,calc(100vw - 32px));
+      background:var(--panel);border:1px solid var(--border-3);border-radius:14px;padding:18px;
+      box-shadow:0 24px 60px rgba(0,0,0,.5);color:var(--ink-2);font-size:13.5px;line-height:1.55}
+    .ck[hidden]{display:none}
+    .ck-title{margin:0 0 6px;color:var(--ink);font-size:15px;font-weight:600}
+    .ck p{margin:0 0 14px}
+    .ck a{color:var(--amber)}
+    .ck-actions{display:flex;gap:8px;flex-wrap:wrap}
+    .ck-actions .btn{flex:1;justify-content:center;padding:10px 14px;font-size:13.5px}
     .foot-contact{text-transform:none;letter-spacing:0;font-family:GeistSans,sans-serif;font-size:13px;color:var(--ink-2)}
 
     .js [data-reveal]{opacity:0;transform:translateY(28px);transition:opacity .85s cubic-bezier(.22,1,.36,1),transform .85s cubic-bezier(.22,1,.36,1)}
@@ -843,6 +855,7 @@
       <div class="foot-legal">
         <a href="https://eurocomplai.com/privacy/">Privacy</a>
         <a href="https://eurocomplai.com/cookie/">Cookie</a>
+        <button type="button" data-cookie-open>Gestisci cookie</button>
       </div>
     </div>
   </footer>
@@ -1091,6 +1104,114 @@
           if (r.top < window.innerHeight && r.bottom > 0) n.classList.add("is-visible");
         });
       });
+    })();
+  </script>
+  <!-- Banner cookie della landing. Questa pagina è HTML statico e non monta il
+       banner React del sito: usa però la stessa chiave ec_consent_v1 (stesso
+       dominio, stesso localStorage) e lo stesso log su Supabase, quindi una
+       scelta fatta qui vale anche sul resto del sito e viceversa. Il tag di
+       Google Ads parte solo dopo "Accetta"; la logica è la stessa di
+       lib/googleAds.ts. -->
+  <div class="ck" id="cookie-banner" role="dialog" aria-label="Preferenze cookie" hidden>
+    <p class="ck-title">Cookie</p>
+    <p>Usiamo cookie tecnici, necessari al sito, e, solo se li accetti, cookie di marketing di
+      Google Ads per misurare le nostre campagne pubblicitarie. Puoi cambiare idea in ogni momento
+      da «Gestisci cookie» in fondo alla pagina. Dettagli nella
+      <a href="https://eurocomplai.com/cookie/">Cookie policy</a>.</p>
+    <div class="ck-actions">
+      <button type="button" class="btn btn-ghost" data-cookie="reject">Rifiuta</button>
+      <button type="button" class="btn btn-primary" data-cookie="accept">Accetta</button>
+    </div>
+  </div>
+  <script>
+    (() => {
+      // Allineare a lib/cookieConsent.ts (chiave e POLICY_VERSION) e a lib/googleAds.ts.
+      const KEY = "ec_consent_v1";
+      const VERSION = "1.1";
+      const ADS_ID = "AW-18468380524";
+      const LOG_URL = "https://qjlbbbbhfxagzubjyvje.supabase.co/rest/v1/rpc/log_consent";
+      const banner = document.getElementById("cookie-banner");
+      let loaded = false;
+
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { window.dataLayer.push(arguments); }
+
+      function enableAds() {
+        const first = !loaded;
+        if (first) {
+          loaded = true;
+          window.gtag = gtag;
+          gtag("consent", "default", { ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied", analytics_storage: "denied" });
+        }
+        gtag("consent", "update", { ad_storage: "granted", ad_user_data: "granted", ad_personalization: "granted" });
+        if (first) {
+          const s = document.createElement("script");
+          s.async = true;
+          s.src = "https://www.googletagmanager.com/gtag/js?id=" + ADS_ID;
+          document.head.appendChild(s);
+          gtag("js", new Date());
+          gtag("config", ADS_ID);
+        }
+      }
+
+      function disableAds() {
+        if (!loaded) return;
+        gtag("consent", "update", { ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
+        const domain = location.hostname.replace(/^www\./, "");
+        document.cookie.split(";").forEach((c) => {
+          const name = c.split("=")[0].trim();
+          if (!/^_gcl_/.test(name)) return;
+          ["", "; domain=" + domain, "; domain=." + domain].forEach((d) => {
+            document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/" + d;
+          });
+        });
+      }
+
+      function read() {
+        try {
+          const v = JSON.parse(localStorage.getItem(KEY));
+          return v && v.version === VERSION ? v : null;
+        } catch (e) { return null; }
+      }
+
+      function sessionId() {
+        try {
+          let id = sessionStorage.getItem("ec_session_id");
+          if (!id) { id = crypto.randomUUID(); sessionStorage.setItem("ec_session_id", id); }
+          return id;
+        } catch (e) { return crypto.randomUUID(); }
+      }
+
+      function choose(marketing) {
+        const prev = read();
+        // Il banner della landing chiede solo del marketing: la scelta sui
+        // cookie funzionali fatta altrove sul sito resta com'è.
+        const choices = { functional: prev ? Boolean(prev.functional) : false, marketing };
+        try { localStorage.setItem(KEY, JSON.stringify({ ...choices, version: VERSION })); } catch (e) {}
+        banner.hidden = true;
+        marketing ? enableAds() : disableAds();
+        fetch(LOG_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", apikey: ANON, Authorization: "Bearer " + ANON },
+          body: JSON.stringify({
+            p_session_id: sessionId(),
+            p_action: marketing ? "accept_all" : "reject_all",
+            p_choices: choices,
+            p_policy_version: VERSION,
+            p_page_url: location.pathname,
+            p_user_agent: navigator.userAgent.slice(0, 200),
+          }),
+          keepalive: true,
+        }).catch(() => {});
+      }
+
+      banner.querySelector('[data-cookie="accept"]').addEventListener("click", () => choose(true));
+      banner.querySelector('[data-cookie="reject"]').addEventListener("click", () => choose(false));
+      document.querySelector("[data-cookie-open]").addEventListener("click", () => { banner.hidden = false; });
+
+      const stored = read();
+      if (stored && stored.marketing) enableAds();
+      if (!stored) banner.hidden = false;
     })();
   </script>
 </body>

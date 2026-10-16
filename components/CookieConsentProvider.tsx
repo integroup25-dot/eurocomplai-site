@@ -9,6 +9,7 @@ import {
   type ReactNode,
 } from "react";
 import { type ConsentChoices, getStoredConsent, saveConsent, logConsent } from "@/lib/cookieConsent";
+import { disableGoogleAds, enableGoogleAds } from "@/lib/googleAds";
 
 type CookieConsentCtx = {
   choices: ConsentChoices | null;
@@ -40,6 +41,14 @@ export default function CookieConsentProvider({ children }: { children: ReactNod
     setReady(true);
   }, []);
 
+  // Il tag di Google Ads segue la scelta salvata: parte solo con il consenso
+  // marketing e si spegne se l'utente lo revoca dal banner.
+  const marketingGranted = Boolean(choices?.marketing);
+  useEffect(() => {
+    if (marketingGranted) enableGoogleAds();
+    else disableGoogleAds();
+  }, [marketingGranted]);
+
   const commit = useCallback((c: ConsentChoices, action: "accept_all" | "reject_all" | "custom") => {
     setChoices(c);
     saveConsent(c);
@@ -54,8 +63,8 @@ export default function CookieConsentProvider({ children }: { children: ReactNod
         ready,
         bannerOpen,
         openSettings: () => setBannerOpen(true),
-        acceptAll: () => commit({ functional: true }, "accept_all"),
-        rejectAll: () => commit({ functional: false }, "reject_all"),
+        acceptAll: () => commit({ functional: true, marketing: true }, "accept_all"),
+        rejectAll: () => commit({ functional: false, marketing: false }, "reject_all"),
         saveChoices: (c) => commit(c, "custom"),
       }}
     >

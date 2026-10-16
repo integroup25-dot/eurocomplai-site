@@ -2,11 +2,19 @@ import { supabase } from "./supabase";
 
 export type ConsentChoices = {
   functional: boolean;
+  marketing: boolean;
 };
 
 export const CONSENT_KEY = "ec_consent_v1";
 export const CONSENT_EVENT = "ec:consent-updated";
-export const POLICY_VERSION = "1.0";
+/**
+ * Versione della Cookie policy a cui si riferisce la scelta salvata. Va
+ * incrementata quando cambiano le categorie o i servizi: una scelta salvata
+ * con un'altra versione (o senza versione, come quelle della 1.0) è scaduta e
+ * il banner ricompare. La landing statica public/prenota-demo/index.html
+ * legge la stessa chiave: aggiornare la versione anche lì.
+ */
+export const POLICY_VERSION = "1.1";
 const SESSION_KEY = "ec_session_id";
 
 export function getStoredConsent(): ConsentChoices | null {
@@ -14,7 +22,9 @@ export function getStoredConsent(): ConsentChoices | null {
   try {
     const raw = localStorage.getItem(CONSENT_KEY);
     if (!raw) return null;
-    return JSON.parse(raw) as ConsentChoices;
+    const parsed = JSON.parse(raw);
+    if (parsed?.version !== POLICY_VERSION) return null;
+    return { functional: Boolean(parsed.functional), marketing: Boolean(parsed.marketing) };
   } catch {
     return null;
   }
@@ -22,7 +32,7 @@ export function getStoredConsent(): ConsentChoices | null {
 
 export function saveConsent(choices: ConsentChoices): void {
   if (typeof window === "undefined") return;
-  localStorage.setItem(CONSENT_KEY, JSON.stringify(choices));
+  localStorage.setItem(CONSENT_KEY, JSON.stringify({ ...choices, version: POLICY_VERSION }));
   window.dispatchEvent(new Event(CONSENT_EVENT));
 }
 

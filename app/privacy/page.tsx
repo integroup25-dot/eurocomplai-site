@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Footer from "@/components/Footer";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Informativa Privacy",
@@ -163,7 +164,13 @@ export default function PrivacyPage() {
                 <h2 className="privacy-h2">Trasferimento dati extra UE</h2>
                 <p>
                   I Dati Personali non sono oggetto di trasferimento verso Paesi terzi rispetto all&apos;Unione
-                  europea e allo Spazio Economico Europeo.
+                  europea e allo Spazio Economico Europeo, salvo quanto avviene tramite i servizi di terza parte
+                  attivati solo con il consenso dell&apos;utente e descritti nella{" "}
+                  <Link href="/cookie/" className="privacy-link">
+                    Cookie Policy
+                  </Link>
+                  : in particolare Google Ads, i cui dati possono essere trattati da Google LLC negli Stati Uniti
+                  sulla base dell&apos;EU-U.S. Data Privacy Framework.
                 </p>
                 <p>
                   Qualora tale trasferimento dovesse rendersi necessario e/o inevitabile per esigenze organizzative
