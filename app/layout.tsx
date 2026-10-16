@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
-import "./globals.css";
-import SiteHeader from "@/components/SiteHeader";
+import "./base.css";
 import CookieConsentProvider from "@/components/CookieConsentProvider";
 import CookieBanner from "@/components/CookieBanner";
 
@@ -125,10 +124,11 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="it" className={`${geistSans.variable} ${geistMono.variable}`}>
+    // La landing aggiunge la classe "js" a <html> prima dell'idratazione
+    // (animazioni di comparsa): suppressHydrationWarning evita l'avviso.
+    <html lang="it" className={`${geistSans.variable} ${geistMono.variable}`} suppressHydrationWarning>
       <body>
         <CookieConsentProvider>
-          <SiteHeader />
           {children}
           <CookieBanner />
         </CookieConsentProvider>

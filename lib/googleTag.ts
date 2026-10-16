@@ -1,8 +1,7 @@
 /**
  * Tag Google (gtag.js) con due destinazioni, ciascuna attivata da un consenso
  * distinto del banner cookie (vedi components/CookieConsentProvider.tsx).
- * La landing statica public/prenota-demo/index.html ne ha una copia in
- * JavaScript semplice: tenerle allineate. Destinazioni:
+ * Destinazioni:
  *   - Google Ads (AW-…)         categoria "marketing"
  *   - Google Analytics 4 (G-…)  categoria "statistiche"
  *
@@ -15,6 +14,8 @@
  */
 const GOOGLE_ADS_ID = "AW-18468380524";
 const GOOGLE_ANALYTICS_ID = "G-HZG8ZDTQTT";
+/** Conversione Google Ads "Richiesta demo EurocomplAI" (azione di tipo caricamento pagina). */
+const GOOGLE_ADS_DEMO_CONVERSION = `${GOOGLE_ADS_ID}/9AqKCIyK9p4dEOy-tOZE`;
 
 let scriptLoaded = false;
 const configured = new Set<string>();
@@ -95,4 +96,15 @@ export function applyGoogleTagConsent({ ads, analytics }: { ads: boolean; analyt
   // gtag.js elabora la coda in modo asincrono: nel frattempo la destinazione
   // revocata può riscrivere i suoi cookie. Si ripassa quando ha recepito il "denied".
   pulizia = window.setTimeout(cancella, 1500);
+}
+
+/**
+ * Conversione "Richiesta demo" dopo un invio riuscito del modulo della
+ * landing. Senza consenso marketing non manda nulla: niente conversione,
+ * niente richiesta a Google.
+ */
+export function trackDemoRequestConversion({ ads, analytics }: { ads: boolean; analytics: boolean }) {
+  if (typeof window === "undefined" || !ads) return;
+  applyGoogleTagConsent({ ads, analytics });
+  gtag("event", "conversion", { send_to: GOOGLE_ADS_DEMO_CONVERSION });
 }

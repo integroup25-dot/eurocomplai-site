@@ -12,8 +12,7 @@ export const CONSENT_EVENT = "ec:consent-updated";
  * Versione della Cookie policy a cui si riferisce la scelta salvata. Va
  * incrementata quando cambiano le categorie o i servizi: una scelta salvata
  * con un'altra versione (o senza versione, come quelle della 1.0) è scaduta e
- * il banner ricompare. La landing statica public/prenota-demo/index.html
- * legge la stessa chiave: aggiornare la versione anche lì.
+ * il banner ricompare.
  */
 export const POLICY_VERSION = "1.1";
 const SESSION_KEY = "ec_session_id";

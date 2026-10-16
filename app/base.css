@@ -1,0 +1,50 @@
+/* Base comune a sito e landing: token del design system e corpo pagina.
+   Il resto dello stile del sito sta in globals.css, che la landing
+   /prenota-demo/ non carica perché ha un CSS suo. */
+
+:root {
+  /* Base / neutrali */
+  --bg: #070A12;
+  --surface: #0C111E;
+  --panel: #121828;
+  --panel-bright: #1A2238;
+  --ink: #F4F6FB;
+  --ink-2: #9CA5B8;
+  --ink-3: #5A6378;
+  --ink-4: #3B4356;
+  --border-1: rgba(255,255,255,0.08);
+  --border-2: rgba(255,255,255,0.04);
+  --border-3: rgba(255,255,255,0.14);
+
+  /* Accent — Ambra (mono) */
+  --accent:       #FFB020;
+  --accent-2:     #FFD466;
+  --accent-3:     #B87800;
+  --accent-soft:  rgba(255,176,32,0.10);
+  --accent-glow:  rgba(255,176,32,0.30);
+  --accent-glow-2:rgba(255,176,32,0.22);
+  --accent-glow-3:rgba(255,176,32,0.18);
+  --primary-text: #1A1208;
+
+  /* Chip normative */
+  --chip-gdpr:  #A78BFA;
+  --chip-nis2:  #22D3EE;
+  --chip-aiact: #FF7B8A;
+
+  /* Status */
+  --status-green: #34D399;
+  --status-muted: #8E97A8;
+  --semaphore-red:   #FF5F57;
+  --semaphore-amber: #FEBC2E;
+  --semaphore-green: #28C840;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

@@ -1,5 +1,6 @@
 "use client";
 
+import "./CookieBanner.css";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useCookieConsent } from "./CookieConsentProvider";
