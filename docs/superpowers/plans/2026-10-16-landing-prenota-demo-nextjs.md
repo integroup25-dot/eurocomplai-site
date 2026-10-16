@@ -1112,3 +1112,30 @@ cd $REPO && git add -A "app/(landing)" public && git commit -m "Landing /prenota
 - [ ] **Step 2:** PR in bozza verso `main` con riepilogo e risultati delle verifiche.
 - [ ] **Step 3:** attendere il check «Cloudflare Pages» e ripetere `form.e2e.js` e `consenso.e2e.js` sull'anteprima (`https://claude-hopeful-feynman-vi0gc.eurocomplai-site.pages.dev`), sempre con le richieste intercettate.
 - [ ] **Step 4:** fermare i server locali e rimuovere la worktree: `git -C $REPO worktree remove --force $S/prima`.
+
+---
+
+## Esecuzione: scostamenti dal piano
+
+- **Reset del banner (Task 3, Step 4).** Il progetto ha il preflight di Tailwind disattivato
+  (`corePlugins.preflight: false`): l'unica base del sito è `* { box-sizing: border-box;
+  margin: 0; padding: 0; }` di `globals.css`. Il reset di `CookieBanner.css` riproduce solo
+  quello; la versione del piano copiava anche il preflight e portava l'interlinea dei pulsanti
+  da `normal` a 1.5 (banner più alto di 3,5 px), come mostrato dal confronto.
+- **Strumenti di verifica.**
+  - `rete.js` blocca ogni host esterno tranne font (eurocomplai.com) e immagini
+    (integroup.eu). Il filtro `**/googletagmanager.com/**` del piano non intercettava
+    `www.googletagmanager.com`: nei primi giri sulla landing statica, con consenso marketing,
+    il tag Google vero è partito.
+  - Negli screenshot animazioni e transizioni sono ferme: alcune pagine del sito animano in
+    continuo e due scatti della stessa build non venivano identici. Le animazioni della
+    landing si controllano a parte (`document.getAnimations()`).
+  - In `banner.js` il puntatore si sposta dopo ogni clic (lo stato hover con transizione
+    falsava il confronto). Timeout di navigazione a 60 s.
+  - `form.e2e.js`: la verifica «risposta conservata» guarda l'opzione scelta (indice 1).
+- **Esiti.** Sito identico pixel per pixel (7 pagine × 4 larghezze × banner aperto/chiuso,
+  più banner chiuso, categorie e pulsante). Landing identica alla statica a 4 larghezze;
+  banner della landing uguale a quello della home (differiscono solo gli angoli
+  arrotondati, dove si vede la pagina sotto). Modulo con esiti identici alla statica.
+  Consenso, metadati, animazioni, comparsa allo scroll e navigazione verso `/cookie/` dal
+  banner come attesi; nessun errore o avviso in console.
