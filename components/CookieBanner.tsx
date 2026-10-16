@@ -5,15 +5,16 @@ import Link from "next/link";
 import { useCookieConsent } from "./CookieConsentProvider";
 import type { ConsentChoices } from "@/lib/cookieConsent";
 
+// Le categorie facoltative hanno una chiave in ConsentChoices; quella dei
+// cookie necessari no, perché è sempre attiva.
 const CATEGORIES: {
-  key: keyof ConsentChoices;
+  key?: keyof ConsentChoices;
   label: string;
   description: string;
   services: string;
   required?: boolean;
 }[] = [
   {
-    key: "functional" as keyof ConsentChoices,
     label: "Necessari",
     description:
       "Indispensabili per il funzionamento del sito: gestione della sessione, sicurezza, preferenze di navigazione.",
@@ -27,13 +28,27 @@ const CATEGORIES: {
       "Abilitano funzionalità avanzate come la prenotazione di demo e i form di contatto. Senza questi cookie alcune sezioni del sito non saranno disponibili.",
     services: "Microsoft Bookings (prenotazione demo), Tally (form di contatto)",
   },
+  {
+    key: "analytics",
+    label: "Statistiche",
+    description:
+      "Ci dicono in forma aggregata quante persone visitano il sito, da dove arrivano e quali pagine leggono, per migliorarlo.",
+    services: "Google Analytics",
+  },
+  {
+    key: "marketing",
+    label: "Marketing",
+    description:
+      "Misurano le conversioni delle nostre campagne pubblicitarie (per esempio una richiesta di demo arrivata da un annuncio) e consentono a Google di mostrarti nostri annunci su altri siti.",
+    services: "Google Ads",
+  },
 ];
 
 export default function CookieBanner() {
   const { choices, ready, bannerOpen, openSettings, acceptAll, rejectAll, saveChoices } =
     useCookieConsent();
   const [expanded, setExpanded] = useState(false);
-  const [local, setLocal] = useState<ConsentChoices>({ functional: false });
+  const [local, setLocal] = useState<ConsentChoices>({ functional: false, analytics: false, marketing: false });
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -42,7 +57,11 @@ export default function CookieBanner() {
 
   useEffect(() => {
     if (bannerOpen) {
-      setLocal({ functional: choices?.functional ?? false });
+      setLocal({
+        functional: choices?.functional ?? false,
+        analytics: choices?.analytics ?? false,
+        marketing: choices?.marketing ?? false,
+      });
       setExpanded(false);
     }
   }, [bannerOpen, choices]);
@@ -74,8 +93,10 @@ export default function CookieBanner() {
 
             <p className="cookie-banner-desc">
               Utilizziamo cookie per garantire il corretto funzionamento del sito e, con il tuo
-              consenso, per abilitare funzionalità come la prenotazione di demo. Puoi accettare
-              tutti i cookie, rifiutare quelli non essenziali o personalizzare le tue scelte.{" "}
+              consenso, per abilitare funzionalità come la prenotazione di demo, per capire come viene
+              usato il sito (Google Analytics) e per misurare le nostre campagne pubblicitarie (Google
+              Ads). Puoi accettare tutti i cookie, rifiutare
+              quelli non essenziali o personalizzare le tue scelte.{" "}
               <Link href="/cookie/" className="cookie-link">
                 Cookie policy
               </Link>
@@ -84,7 +105,7 @@ export default function CookieBanner() {
             {/* ── Granular toggles ── */}
             {expanded && (
               <div className="cookie-categories">
-                {CATEGORIES.map((cat, i) => (
+                {CATEGORIES.map(({ key, ...cat }, i) => (
                   <div className="cookie-category" key={i}>
                     <div className="cookie-category-top">
                       <div className="cookie-category-info">
@@ -93,15 +114,13 @@ export default function CookieBanner() {
                           <span className="cookie-required-badge">Sempre attivi</span>
                         )}
                       </div>
-                      {cat.required ? (
+                      {!key ? (
                         <div className="cookie-toggle cookie-toggle--on cookie-toggle--disabled" aria-disabled="true" />
                       ) : (
-                        <button
-                          role="switch"
-                          aria-checked={local.functional}
-                          className={`cookie-toggle ${local.functional ? "cookie-toggle--on" : ""}`}
-                          onClick={() => setLocal((p) => ({ ...p, functional: !p.functional }))}
-                          aria-label={`${cat.label}: ${local.functional ? "attivi" : "disattivi"}`}
+                        <CategoryToggle
+                          label={cat.label}
+                          on={local[key]}
+                          onToggle={() => setLocal((p) => ({ ...p, [key]: !p[key] }))}
                         />
                       )}
                     </div>
@@ -152,6 +171,18 @@ export default function CookieBanner() {
         </div>
       )}
     </>
+  );
+}
+
+function CategoryToggle({ label, on, onToggle }: { label: string; on: boolean; onToggle: () => void }) {
+  return (
+    <button
+      role="switch"
+      aria-checked={on}
+      className={`cookie-toggle ${on ? "cookie-toggle--on" : ""}`}
+      onClick={onToggle}
+      aria-label={`${label}: ${on ? "attivi" : "disattivi"}`}
+    />
   );
 }
 
