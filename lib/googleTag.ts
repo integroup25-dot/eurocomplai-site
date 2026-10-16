@@ -14,7 +14,7 @@
  * aggiornato categoria per categoria.
  */
 const GOOGLE_ADS_ID = "AW-18468380524";
-const GOOGLE_ANALYTICS_ID = "G-PRFHG70BE2";
+const GOOGLE_ANALYTICS_ID = "G-CV5947P7JF";
 
 let scriptLoaded = false;
 const configured = new Set<string>();
