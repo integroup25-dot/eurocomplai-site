@@ -156,8 +156,7 @@
     .ig-field::placeholder{color:var(--grey)}
     .ig-field:focus{border-color:var(--amber);background:var(--navy);outline:none}
     textarea.ig-field{resize:vertical;min-height:96px}
-    .consent{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--ink-2);line-height:1.5}
-    .consent input{margin-top:3px;flex-shrink:0;accent-color:var(--amber)}
+    .consent{margin:0;font-size:13px;color:var(--ink-2);line-height:1.5}
     .consent a{color:var(--amber);text-decoration:underline;text-underline-offset:2px}
     .form-msg{padding:16px;border-radius:12px;border:1px solid var(--border-1);background:rgba(255,255,255,.04);text-align:center;color:var(--ink);font-size:15px}
     .form-msg.error{border-color:color-mix(in srgb,var(--amber) 35%,transparent)}
@@ -967,10 +966,7 @@
             </div>
             <input class="ig-field" type="text" name="company" maxlength="200" autocomplete="organization" placeholder="Azienda (facoltativo)" aria-label="Azienda (facoltativo)" />
             <textarea class="ig-field" name="message" rows="3" maxlength="5000" placeholder="Vuoi aggiungere qualcosa sul contesto? (facoltativo)" aria-label="Contesto (facoltativo)"></textarea>
-            <label class="consent">
-              <input type="checkbox" name="privacy" required />
-              <span>Ho letto l'<a href="https://eurocomplai.com/privacy/" target="_blank" rel="noopener">informativa privacy</a> e acconsento al trattamento dei dati per essere ricontattato/a.</span>
-            </label>
+            <p class="consent">Inviando la richiesta dichiari di aver preso visione dell'<a href="https://eurocomplai.com/privacy/" target="_blank" rel="noopener">informativa privacy</a>.</p>
           </div>
         </fieldset>
         <div class="q-actions">
