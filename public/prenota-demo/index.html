@@ -1071,6 +1071,9 @@
             })
           });
           if (!res.ok) throw new Error("invio fallito");
+          // Conversione Google Ads "Richiesta demo EurocomplAI": la definisce
+          // lo script del banner cookie più sotto e parte solo con il consenso marketing.
+          if (window.ecRegistraRichiestaDemo) window.ecRegistraRichiestaDemo();
           mount.innerHTML = OK_MSG;
           mount.firstElementChild.focus();
         } catch {
@@ -1138,6 +1141,8 @@
       const KEY = "ec_consent_v1";
       const VERSION = "1.1";
       const ADS_ID = "AW-18468380524";
+      // Etichetta della conversione "Richiesta demo EurocomplAI" (Google Ads, caricamento pagina).
+      const ADS_CONVERSIONE_DEMO = ADS_ID + "/9AqKCIyK9p4dEOy-tOZE";
       const GA_ID = "G-HZG8ZDTQTT";
       const LOG_URL = "https://qjlbbbbhfxagzubjyvje.supabase.co/rest/v1/rpc/log_consent";
       const banner = document.getElementById("cookie-banner");
@@ -1252,6 +1257,15 @@
         }
       });
       document.querySelector("[data-cookie-open]").addEventListener("click", open);
+
+      // Chiamata dal modulo dopo un invio riuscito. Senza consenso marketing non
+      // manda nulla: niente conversione, niente richiesta a Google.
+      window.ecRegistraRichiestaDemo = () => {
+        const stored = read();
+        if (!stored || !stored.marketing) return;
+        applyConsent(true, Boolean(stored.analytics));
+        gtag("event", "conversion", { send_to: ADS_CONVERSIONE_DEMO });
+      };
 
       const stored = read();
       if (stored) applyConsent(Boolean(stored.marketing), Boolean(stored.analytics));
