@@ -18,6 +18,8 @@ const GOOGLE_ANALYTICS_ID = "G-HZG8ZDTQTT";
 
 let scriptLoaded = false;
 const configured = new Set<string>();
+// Cancellazione ritardata dei cookie revocati: va annullata se la scelta cambia di nuovo.
+let pulizia: number | undefined;
 
 declare global {
   interface Window {
@@ -57,6 +59,7 @@ function deleteCookies(filtro: RegExp) {
  */
 export function applyGoogleTagConsent({ ads, analytics }: { ads: boolean; analytics: boolean }) {
   if (typeof window === "undefined") return;
+  window.clearTimeout(pulizia);
   if (!scriptLoaded && !ads && !analytics) return;
 
   window.dataLayer = window.dataLayer || [];
@@ -91,5 +94,5 @@ export function applyGoogleTagConsent({ ads, analytics }: { ads: boolean; analyt
   cancella();
   // gtag.js elabora la coda in modo asincrono: nel frattempo la destinazione
   // revocata può riscrivere i suoi cookie. Si ripassa quando ha recepito il "denied".
-  window.setTimeout(cancella, 1500);
+  pulizia = window.setTimeout(cancella, 1500);
 }

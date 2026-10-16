@@ -1150,6 +1150,7 @@
       const box = (cat) => banner.querySelector('[data-cat="' + cat + '"]');
       let scriptLoaded = false;
       const configured = new Set();
+      let pulizia;
 
       window.dataLayer = window.dataLayer || [];
       function gtag() { window.dataLayer.push(arguments); }
@@ -1168,6 +1169,7 @@
       }
 
       function applyConsent(ads, analytics) {
+        clearTimeout(pulizia);
         if (!scriptLoaded && !ads && !analytics) return;
         if (!scriptLoaded) {
           window.gtag = gtag;
@@ -1189,7 +1191,7 @@
         const cancella = () => daCancellare.forEach(deleteCookies);
         cancella();
         // gtag.js elabora la coda in modo asincrono: si ripassa quando ha recepito il "denied".
-        setTimeout(cancella, 1500);
+        pulizia = setTimeout(cancella, 1500);
       }
 
       function read() {
@@ -1207,11 +1209,15 @@
         } catch (e) { return crypto.randomUUID(); }
       }
 
-      function choose(analytics, marketing, action) {
+      function choose(analytics, marketing) {
         const prev = read();
         // Il banner della landing chiede solo di statistiche e marketing: la
         // scelta sui cookie funzionali fatta altrove sul sito resta com'è.
         const choices = { functional: prev ? Boolean(prev.functional) : false, analytics, marketing };
+        // L'azione registrata deve descrivere le scelte salvate, compresa
+        // quella sui funzionali ereditata dal sito.
+        const valori = Object.values(choices);
+        const action = valori.every(Boolean) ? "accept_all" : valori.some(Boolean) ? "custom" : "reject_all";
         try { localStorage.setItem(KEY, JSON.stringify({ ...choices, version: VERSION })); } catch (e) {}
         banner.hidden = true;
         applyConsent(marketing, analytics);
@@ -1239,14 +1245,14 @@
         banner.hidden = false;
       }
 
-      banner.querySelector('[data-cookie="accept"]').addEventListener("click", () => choose(true, true, "accept_all"));
-      banner.querySelector('[data-cookie="reject"]').addEventListener("click", () => choose(false, false, "reject_all"));
+      banner.querySelector('[data-cookie="accept"]').addEventListener("click", () => choose(true, true));
+      banner.querySelector('[data-cookie="reject"]').addEventListener("click", () => choose(false, false));
       moreBtn.addEventListener("click", () => {
         if (choicesBox.hidden) {
           choicesBox.hidden = false;
           moreBtn.textContent = "Salva le scelte";
         } else {
-          choose(box("analytics").checked, box("marketing").checked, "custom");
+          choose(box("analytics").checked, box("marketing").checked);
         }
       });
       document.querySelector("[data-cookie-open]").addEventListener("click", open);

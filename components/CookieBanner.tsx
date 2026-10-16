@@ -105,7 +105,7 @@ export default function CookieBanner() {
             {/* ── Granular toggles ── */}
             {expanded && (
               <div className="cookie-categories">
-                {CATEGORIES.map((cat, i) => (
+                {CATEGORIES.map(({ key, ...cat }, i) => (
                   <div className="cookie-category" key={i}>
                     <div className="cookie-category-top">
                       <div className="cookie-category-info">
@@ -114,16 +114,13 @@ export default function CookieBanner() {
                           <span className="cookie-required-badge">Sempre attivi</span>
                         )}
                       </div>
-                      {cat.required || !cat.key ? (
+                      {!key ? (
                         <div className="cookie-toggle cookie-toggle--on cookie-toggle--disabled" aria-disabled="true" />
                       ) : (
                         <CategoryToggle
                           label={cat.label}
-                          on={local[cat.key]}
-                          onToggle={() => {
-                            const key = cat.key!;
-                            setLocal((p) => ({ ...p, [key]: !p[key] }));
-                          }}
+                          on={local[key]}
+                          onToggle={() => setLocal((p) => ({ ...p, [key]: !p[key] }))}
                         />
                       )}
                     </div>
