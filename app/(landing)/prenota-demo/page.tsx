@@ -2,7 +2,7 @@
 import type { Metadata } from "next";
 import "./landing.css";
 import DemoRequestForm from "./DemoRequestForm";
-import ManageCookiesButton from "./ManageCookiesButton";
+import LandingFooter from "./LandingFooter";
 import RevealOnScroll from "./RevealOnScroll";
 
 const TITLE = "EurocomplAI — Automatizza GDPR, NIS2 e AI Act";
@@ -518,19 +518,7 @@ export default function PrenotaDemoPage() {
         </div>
       </section>
 
-      <footer className="foot">
-        <div className="wrap foot-row">
-          <a className="logomark" href="https://eurocomplai.com/" aria-label="EurocomplAI">
-            <span className="bracket">[</span>eurocompl<span className="slash">/</span><span className="ai">ai</span><span className="bracket">]</span>
-          </a>
-          <div className="foot-contact">Via Ippolito Nievo, 11 · 20145 Milano · <a href="mailto:eurocomplai@integroup.eu">eurocomplai@integroup.eu</a> · <a href="tel:+3902320626828">+39 02 320 626 828</a></div>
-          <div className="foot-legal">
-            <a href="https://eurocomplai.com/privacy/">Privacy</a>
-            <a href="https://eurocomplai.com/cookie/">Cookie</a>
-            <ManageCookiesButton />
-          </div>
-        </div>
-      </footer>
+      <LandingFooter />
     </div>
   );
 }

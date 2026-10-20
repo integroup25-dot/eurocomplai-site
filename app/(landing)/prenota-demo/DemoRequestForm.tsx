@@ -1,11 +1,14 @@
 "use client";
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
+import { useRouter } from "next/navigation";
 import { useCookieConsent } from "@/components/CookieConsentProvider";
 import { DEMO_QUESTIONS, sendDemoRequest } from "@/lib/demoRequest";
 import { trackDemoRequestConversion } from "@/lib/googleTag";
 
 const CTA = "Prenota una demo di EurocomplAI";
+/** Pagina di ringraziamento dopo un invio riuscito. */
+const GRAZIE = "/prenota-demo/grazie/";
 const TOTALE = DEMO_QUESTIONS.length;
 
 type Props = {
@@ -22,14 +25,13 @@ type Props = {
  */
 export default function DemoRequestForm({ n, source, context }: Props) {
   const { choices } = useCookieConsent();
+  const router = useRouter();
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [invio, setInvio] = useState(false);
   const [errore, setErrore] = useState(false);
-  const [inviato, setInviato] = useState<false | "focus" | "silenzioso">(false);
   const titoli = useRef<(HTMLSpanElement | null)[]>([]);
   const focusAlTitolo = useRef(false);
-  const conferma = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!focusAlTitolo.current) return;
@@ -38,20 +40,6 @@ export default function DemoRequestForm({ n, source, context }: Props) {
     // sente subito la domanda successiva.
     titoli.current[step]?.focus();
   }, [step]);
-
-  useEffect(() => {
-    if (inviato === "focus") conferma.current?.focus();
-  }, [inviato]);
-
-  if (inviato) {
-    return (
-      <div>
-        <div className="form-msg" role="status" tabIndex={-1} ref={conferma}>
-          Grazie, richiesta inviata — ti ricontatteremo per la demo.
-        </div>
-      </div>
-    );
-  }
 
   const vai = (nuovo: number) => {
     focusAlTitolo.current = true;
@@ -68,7 +56,7 @@ export default function DemoRequestForm({ n, source, context }: Props) {
     const fd = new FormData(e.currentTarget);
     if (fd.get("website")) {
       // Campo honeypot compilato: probabile bot, si finge un invio riuscito.
-      setInviato("silenzioso");
+      router.push(GRAZIE);
       return;
     }
     setInvio(true);
@@ -91,7 +79,10 @@ export default function DemoRequestForm({ n, source, context }: Props) {
       return;
     }
     trackDemoRequestConversion({ ads: Boolean(choices?.marketing), analytics: Boolean(choices?.analytics) });
-    setInviato("focus");
+    // Navigazione lato client: la pagina non si scarica e la richiesta della
+    // conversione partita qui sopra arriva comunque a Google. Il pulsante
+    // resta su «Invio…» fino al cambio di pagina.
+    router.push(GRAZIE);
   }
 
   return (
