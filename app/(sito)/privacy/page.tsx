@@ -50,6 +50,10 @@ export default function PrivacyPage() {
                 <ul className="privacy-list">
                   <li>Dati anagrafici (es. nome, cognome, data di nascita, indirizzo);</li>
                   <li>Dati di contatto (es. telefono, e-mail);</li>
+                  <li>
+                    Dati forniti con la richiesta di demo (azienda, messaggio, risposte al questionario di
+                    qualificazione);
+                  </li>
                   <li>Dati tecnici e di navigazione (es. Indirizzi IP, Nomi a Dominio dei Computer);</li>
                   <li>
                     Previo consenso dell&apos;utente, dati acquisiti da Cookie aventi funzionalità diverse dallo
@@ -148,9 +152,98 @@ export default function PrivacyPage() {
                           I dati saranno conservati per un massimo di 5 anni dalla richiesta (salvo contenziosi).
                         </td>
                       </tr>
+                      <tr>
+                        <td>
+                          <strong>E)</strong> Il trattamento è necessario per rispondere alle richieste di demo
+                          inviate tramite il modulo della pagina{" "}
+                          <a href="/prenota-demo/" className="privacy-link">Prenota una demo</a> (nome,
+                          e-mail, azienda, messaggio e risposte al questionario di qualificazione). Si veda la
+                          sezione &ldquo;Modulo di richiesta demo&rdquo; più sotto.
+                        </td>
+                        <td>
+                          <strong>Dati comuni</strong><br />
+                          Esecuzione di misure precontrattuali adottate su richiesta dell&apos;interessato. Ex
+                          Art. 6, par. 1, lett. b) del GDPR, ovvero legittimo interesse del Titolare a rispondere.
+                          Ex Art. 6, par. 1, lett. f) del GDPR.
+                        </td>
+                        <td>
+                          Fino a 24 mesi dall&apos;invio, salvo che la richiesta dia seguito a un rapporto
+                          contrattuale (in tal caso si applicano i termini ordinari di conservazione contabile e
+                          fiscale).
+                        </td>
+                      </tr>
                     </tbody>
                   </table>
                 </div>
+              </section>
+
+              {/* Modulo di richiesta demo */}
+              <section className="privacy-section">
+                <h2 className="privacy-h2">Modulo di richiesta demo</h2>
+                <p>
+                  La pagina{" "}
+                  <a href="/prenota-demo/" className="privacy-link">Prenota una demo</a> mette a
+                  disposizione un modulo con cui l&apos;utente può chiedere una demo di EurocomplAI. I dati inseriti
+                  vengono salvati su <strong>Supabase Inc.</strong>, infrastruttura di database con server
+                  nell&apos;Unione Europea (Irlanda), e inoltrati via e-mail alla persona incaricata di rispondere
+                  tramite <strong>Resend</strong> (Resend, Inc., Stati Uniti), sulla base delle Clausole
+                  Contrattuali Standard adottate dalla Commissione Europea.
+                </p>
+                <div className="privacy-table-wrap">
+                  <table className="privacy-table">
+                    <thead>
+                      <tr>
+                        <th>Dato raccolto</th>
+                        <th>Dettaglio</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Nome e cognome, e-mail</td>
+                        <td>Forniti dall&apos;utente per essere ricontattato.</td>
+                      </tr>
+                      <tr>
+                        <td>Azienda e messaggio</td>
+                        <td>Facoltativi: utili a inquadrare la richiesta.</td>
+                      </tr>
+                      <tr>
+                        <td>Risposte al questionario</td>
+                        <td>
+                          Esigenza principale, ruolo nel processo decisionale, fascia di fatturato
+                          dell&apos;organizzazione e tempistiche previste. Servono a preparare la demo e a
+                          indirizzare la richiesta alla persona giusta; non sono usate per decisioni automatizzate
+                          né per profilazione.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Presa visione dell&apos;Informativa</td>
+                        <td>La spunta della casella, registrata insieme alla data e all&apos;ora dell&apos;invio.</td>
+                      </tr>
+                      <tr>
+                        <td>Pagina di provenienza</td>
+                        <td>Il percorso della pagina da cui è stato inviato il modulo.</td>
+                      </tr>
+                      <tr>
+                        <td>Tipo di browser (user agent)</td>
+                        <td>Trasmesso per il solo fatto della connessione, come per qualunque richiesta al server.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <p>
+                  L&apos;invio del modulo è possibile solo dopo aver preso visione della presente Informativa,
+                  spuntando l&apos;apposita casella. Le richieste sono conservate secondo i tempi indicati alla
+                  finalità E) della tabella sopra e sono leggibili solo dal personale autorizzato del Titolare,
+                  tramite accesso autenticato al database. Informativa di Supabase:{" "}
+                  <a href="https://supabase.com/privacy" target="_blank" rel="noopener noreferrer" className="privacy-link">
+                    supabase.com/privacy
+                  </a>
+                  . Informativa di Resend:{" "}
+                  <a href="https://resend.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer" className="privacy-link">
+                    resend.com/legal/privacy-policy
+                  </a>
+                  .
+                </p>
               </section>
 
               {/* Modalità */}
@@ -164,8 +257,11 @@ export default function PrivacyPage() {
                 <h2 className="privacy-h2">Trasferimento dati extra UE</h2>
                 <p>
                   I Dati Personali non sono oggetto di trasferimento verso Paesi terzi rispetto all&apos;Unione
-                  europea e allo Spazio Economico Europeo, salvo quanto avviene tramite i servizi di terza parte
-                  attivati solo con il consenso dell&apos;utente e descritti nella{" "}
+                  europea e allo Spazio Economico Europeo, salvo in due casi: le richieste inviate con il modulo
+                  di richiesta demo, inoltrate via e-mail tramite Resend, Inc. (Stati Uniti) sulla base delle
+                  Clausole Contrattuali Standard (si veda la sezione &ldquo;Modulo di richiesta demo&rdquo; più
+                  sopra); e i servizi di terza parte attivati solo con il consenso dell&apos;utente e descritti
+                  nella{" "}
                   <Link href="/cookie/" className="privacy-link">
                     Cookie Policy
                   </Link>
